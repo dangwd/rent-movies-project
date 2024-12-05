@@ -360,7 +360,6 @@
                     </span>
                     <input type="text" class="text-xs ring-1 bg-transparent ring-gray-200 dark:ring-zinc-600 focus:ring-red-300 pl-10 pr-5 text-gray-600 dark:text-white py-3 rounded-full w-full outline-none focus:ring-1" placeholder="Search ..." />
                 </div>
-
                 <div class="mt-10">
                     <span class="font-semibold text-gray-700 dark:text-white">Popular Movies</span>
                     <ul class="mt-4 text-gray-400 text-xs space-y-3">
