@@ -7,7 +7,7 @@ class API {
         const url = api + patch;
         try {
             const res = await axios.get(url, {
-                headers: '',
+                headers: authHeader(),
                 timeout: 10000
             });
             return res;
