@@ -1,429 +1,544 @@
-<script setup>
-function smoothScroll(id) {
-    document.body.click();
-    document.querySelector(id).scrollIntoView({
-        behavior: 'smooth'
-    });
-}
-</script>
+<script setup></script>
 <template>
-    <div class="bg-surface-0 dark:bg-surface-900">
-        <div id="home" class="landing-wrapper overflow-hidden">
-            <div class="py-6 px-6 mx-0 md:mx-12 lg:mx-20 lg:px-20 flex items-center justify-between relative lg:static">
-                <a class="flex items-center" href="#">
-                    <span class="text-surface-900 dark:text-surface-0 font-medium text-2xl leading-normal mr-20">SAKAI</span>
-                </a>
-                <Button
-                    class="lg:!hidden"
-                    text
-                    severity="secondary"
-                    rounded
-                    v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
-                >
-                    <i class="pi pi-bars !text-2xl"></i>
-                </Button>
-                <div class="items-center bg-surface-0 dark:bg-surface-900 grow justify-between hidden lg:flex absolute lg:static w-full left-0 top-full px-12 lg:px-0 z-20 rounded-border">
-                    <ul class="list-none p-0 m-0 flex lg:items-center select-none flex-col lg:flex-row cursor-pointer gap-8">
-                        <li>
-                            <a @click="smoothScroll('#hero')" class="px-0 py-4 text-surface-900 dark:text-surface-0 font-medium text-xl">
-                                <span>Home</span>
-                            </a>
+    <body class="font-montserrat text-sm bg-white dark:bg-zinc-900">
+        <div class="flex min-h-screen 2xl:max-w-screen-2xl 2xl:mx-auto 2xl:border-x-2 2xl:border-gray-200 dark:2xl:border-zinc-700">
+            <!-- Left Sidebar -->
+            <aside class="w-1/6 py-10 pl-10 min-w-min border-r border-gray-300 dark:border-zinc-700 hidden md:block">
+                <div class="font-bold text-lg flex items-center gap-x-3">
+                    <svg class="h-8 w-8 fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M10 15.5v-7c0-.41.47-.65.8-.4l4.67 3.5c.27.2.27.6 0 .8l-4.67 3.5c-.33.25-.8.01-.8-.4Zm11.96-4.45c.58 6.26-4.64 11.48-10.9 10.9 -4.43-.41-8.12-3.85-8.9-8.23 -.26-1.42-.19-2.78.12-4.04 .14-.58.76-.9 1.31-.7v0c.47.17.75.67.63 1.16 -.2.82-.27 1.7-.19 2.61 .37 4.04 3.89 7.25 7.95 7.26 4.79.01 8.61-4.21 7.94-9.12 -.51-3.7-3.66-6.62-7.39-6.86 -.83-.06-1.63.02-2.38.2 -.49.11-.99-.16-1.16-.64v0c-.2-.56.12-1.17.69-1.31 1.79-.43 3.75-.41 5.78.37 3.56 1.35 6.15 4.62 6.5 8.4ZM5.5 4C4.67 4 4 4.67 4 5.5 4 6.33 4.67 7 5.5 7 6.33 7 7 6.33 7 5.5 7 4.67 6.33 4 5.5 4Z"
+                        ></path>
+                    </svg>
+                    <div class="tracking-wide dark:text-white">MMovie<span class="text-primary">.</span></div>
+                </div>
+
+                <!-- Menu -->
+                <div class="mt-12 flex flex-col gap-y-4 text-gray-500 fill-gray-500 text-sm">
+                    <div class="text-gray-400/70 font-medium uppercase">Menu</div>
+                    <a class="flex items-center space-x-2 py-1 dark:text-white font-semibold border-r-4 border-r-primary pr-20" href="#">
+                        <svg class="h-5 w-5 fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M5 22h14v0c1.1 0 2-.9 2-2v-9 0c0-.27-.11-.53-.29-.71l-8-8v0c-.4-.39-1.02-.39-1.41 0l-8 8h0c-.2.18-.3.44-.3.71v9 0c0 1.1.89 2 2 2Zm5-2v-5h4v5Zm-5-8.59l7-7 7 7V20h-3v-5 0c0-1.11-.9-2-2-2h-4v0c-1.11 0-2 .89-2 2v5H5Z"
+                            ></path>
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                    <a class="flex items-center space-x-2 py-1 group hover:border-r-4 hover:border-r-primary hover:font-semibold dark:hover:text-white" href="#">
+                        <svg class="h-5 w-5 group-hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g>
+                                <path
+                                    d="M19 2H9c-1.11 0-2 .89-2 2v5.586l-4.707 4.7v0c-.4.39-.4 1.02 0 1.41 .18.18.44.29.7.29v5 0c0 .55.44 1 1 1h16v0c.55 0 1-.45 1-1v-17c0-1.11-.9-2-2-2Zm-8 18H5v-5.586l3-3 3 3V20Zm8 0h-6v-4 0c.55 0 .99-.45 1-1 0-.27-.11-.53-.3-.72L8.99 9.57V3.984h10v16Z"
+                                ></path>
+                                <path d="M11 6h2v2h-2Zm4 0h2v2h-2Zm0 4.03h2v1.96h-2Zm0 3.96h2v2h-2Zm-8 1h2v2H7Z"></path>
+                            </g>
+                        </svg>
+                        <span>Community</span>
+                    </a>
+                    <a class="flex items-center space-x-2 py-1 group hover:border-r-4 hover:border-r-primary hover:font-semibold dark:hover:text-white" href="#">
+                        <svg class="h-5 w-5 group-hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g>
+                                <path d="M12 2C6.48 2 2 6.48 2 12c0 5.51 4.48 10 10 10 5.51 0 10-4.49 10-10 0-5.52-4.49-10-10-10Zm0 18c-4.42 0-8-3.59-8-8 0-4.42 3.58-8 8-8 4.41 0 8 3.58 8 8 0 4.41-3.59 8-8 8Z"></path>
+                                <path d="M8 16l5.991-2 2-6 -6 2Z"></path>
+                            </g>
+                        </svg>
+                        <span>Discovery</span>
+                    </a>
+                    <a class="flex items-center space-x-2 py-1 group hover:border-r-4 hover:border-r-primary hover:font-semibold dark:hover:text-white" href="#">
+                        <svg class="h-5 w-5 group-hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g>
+                                <path d="M12 2C6.48 2 2 6.48 2 12c0 5.51 4.48 10 10 10 5.51 0 10-4.49 10-10 0-5.52-4.49-10-10-10Zm0 18c-4.42 0-8-3.59-8-8 0-4.42 3.58-8 8-8 4.41 0 8 3.58 8 8 0 4.41-3.59 8-8 8Z"></path>
+                                <path d="M13 7h-2v5.414l3.29 3.29 1.41-1.42 -2.71-2.71Z"></path>
+                            </g>
+                        </svg>
+                        <span>Coming Soon</span>
+                    </a>
+
+                    <div class="mt-8 text-gray-400/70 font-medium uppercase">Social</div>
+                    <a class="flex items-center space-x-2 py-1 group hover:border-r-4 hover:border-r-primary hover:font-semibold dark:hover:text-white" href="#">
+                        <svg class="h-5 w-5 group-hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2v0C9.23 2 7 4.23 7 7c0 2.76 2.23 5 5 5 2.76 0 5-2.24 5-5v0c0-2.77-2.24-5-5-5Zm0 8v0c-1.66 0-3-1.35-3-3 0-1.66 1.34-3 3-3 1.65 0 3 1.34 3 3v0c0 1.65-1.35 3-3 3Zm9 11v-1 0c0-3.87-3.14-7-7-7h-4v0c-3.87 0-7 3.13-7 7v1h2v-1 0c0-2.77 2.23-5 5-5h4v0c2.76 0 5 2.23 5 5v1Z"
+                            ></path>
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                    <a class="flex items-center space-x-2 py-1 group hover:border-r-4 hover:border-r-primary hover:font-semibold dark:hover:text-white" href="#">
+                        <svg class="h-5 w-5 group-hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g>
+                                <path
+                                    d="M16.6 11.04v-.001c.6-1.04.87-2.25.75-3.44 -.18-1.79-1.18-3.37-2.81-4.44l-1.11 1.66c1.11.742 1.8 1.79 1.91 2.974l-.001 0c.11 1.1-.29 2.2-1.08 2.98l-1.2 1.19 1.61.47c4.23 1.24 4.28 5.49 4.28 5.53h2c0-1.79-.96-5.285-4.4-6.952Z"
+                                ></path>
+                                <path
+                                    d="M9.5 12c2.2 0 4-1.8 4-4 0-2.21-1.8-4-4-4 -2.21 0-4 1.79-4 4 0 2.2 1.79 4 4 4Zm0-6c1.1 0 2 .89 2 2 0 1.1-.9 2-2 2 -1.11 0-2-.9-2-2 0-1.11.89-2 2-2Zm1.5 7H8c-3.31 0-6 2.69-6 6v1h2v-1c0-2.21 1.79-4 4-4h3c2.2 0 4 1.79 4 4v1h2v-1c0-3.31-2.7-6-6-6Z"
+                                ></path>
+                            </g>
+                        </svg>
+                        <span>Friends</span>
+                    </a>
+                    <a class="flex items-center space-x-2 py-1 group hover:border-r-4 hover:border-r-primary hover:font-semibold dark:hover:text-white" href="#">
+                        <svg class="h-5 w-5 group-hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g>
+                                <path d="M12 2v0C6.47 2 2 6.47 2 12c0 5.52 4.47 10 10 10 5.52 0 10-4.48 10-10v-.001c0-5.53-4.48-10-10-10Zm0 18v0c-4.42 0-8-3.59-8-8 0-4.42 3.58-8 8-8 4.41 0 8 3.58 8 8v0c0 4.41-3.59 8-8 8Z"></path>
+                                <path d="M12 8v0c-2.21 0-4 1.79-4 4 0 2.2 1.79 4 4 4 2.2 0 4-1.8 4-4v0c0-2.21-1.8-4-4-4Zm0 6v0c-1.11 0-2-.9-2-2 0-1.11.89-2 2-2 1.1 0 2 .89 2 2v0c0 1.1-.9 2-2 2Z"></path>
+                            </g>
+                        </svg>
+                        <span>Media</span>
+                    </a>
+
+                    <div class="mt-8 text-gray-400/70 font-medium uppercase">General</div>
+                    <a class="flex items-center space-x-2 py-1 group hover:border-r-4 hover:border-r-primary hover:font-semibold dark:hover:text-white" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:stroke-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                            />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>Settings</span>
+                    </a>
+                    <a class="flex items-center space-x-2 py-1 group hover:border-r-4 hover:border-r-primary hover:font-semibold dark:hover:text-white" href="#">
+                        <svg class="h-5 w-5 group-hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g>
+                                <path d="M16 13v-2H7V8l-5 4 5 4v-3Z"></path>
+                                <path d="M20 3h-9c-1.11 0-2 .89-2 2v4h2V5h9v14h-9v-4H9v4c0 1.1.89 2 2 2h9c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2Z"></path>
+                            </g>
+                        </svg>
+                        <span>Logout</span>
+                    </a>
+                    <a class="flex items-center space-x-2 py-1 mt-4" href="#">
+                        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer" @click="isDark = !isDark" :value="isDark" />
+                            <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
+                        <label for="toggle" class="">Dark Theme</label>
+                    </a>
+                </div>
+                <!-- /Menu -->
+            </aside>
+            <!-- /Left Sidebar -->
+
+            <main class="flex-1 py-10 px-5 sm:px-10">
+                <header class="font-bold text-lg flex items-center gap-x-3 md:hidden mb-12">
+                    <span class="mr-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
+                        </svg>
+                    </span>
+                    <svg class="h-8 w-8 fill-primary shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M10 15.5v-7c0-.41.47-.65.8-.4l4.67 3.5c.27.2.27.6 0 .8l-4.67 3.5c-.33.25-.8.01-.8-.4Zm11.96-4.45c.58 6.26-4.64 11.48-10.9 10.9 -4.43-.41-8.12-3.85-8.9-8.23 -.26-1.42-.19-2.78.12-4.04 .14-.58.76-.9 1.31-.7v0c.47.17.75.67.63 1.16 -.2.82-.27 1.7-.19 2.61 .37 4.04 3.89 7.25 7.95 7.26 4.79.01 8.61-4.21 7.94-9.12 -.51-3.7-3.66-6.62-7.39-6.86 -.83-.06-1.63.02-2.38.2 -.49.11-.99-.16-1.16-.64v0c-.2-.56.12-1.17.69-1.31 1.79-.43 3.75-.41 5.78.37 3.56 1.35 6.15 4.62 6.5 8.4ZM5.5 4C4.67 4 4 4.67 4 5.5 4 6.33 4.67 7 5.5 7 6.33 7 7 6.33 7 5.5 7 4.67 6.33 4 5.5 4Z"
+                        ></path>
+                    </svg>
+                    <div class="tracking-wide dark:text-white flex-1">MMovie<span class="text-primary">.</span></div>
+
+                    <div class="relative items-center content-center flex ml-2">
+                        <span class="text-gray-400 absolute left-4 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </span>
+                        <input
+                            type="text"
+                            class="text-xs ring-1 bg-transparent ring-gray-200 dark:ring-zinc-600 focus:ring-red-300 pl-10 pr-5 text-gray-600 dark:text-white py-3 rounded-full w-full outline-none focus:ring-1"
+                            placeholder="Search ..."
+                        />
+                    </div>
+                </header>
+
+                <section>
+                    <nav class="flex space-x-6 text-gray-400 font-medium">
+                        <a href="#" class="hover:text-gray-700 dark:hover:text-white">TV Series</a>
+                        <a href="#" class="text-gray-700 dark:text-white font-semibold">Movies</a>
+                        <a href="#" class="hover:text-gray-700 dark:hover:text-white">Animes</a>
+                    </nav>
+
+                    <div class="flex flex-col justify-between mt-4 bg-black/10 bg-blend-multiply rounded-3xl h-80 overflow-hidden bg-cover bg-center px-7 pt-4 pb-6 text-white" style="background-image: url('images/inception.jpg')">
+                        <!-- <img class="object-cover w-full h-full" src="images/inception.jpg" alt=""> -->
+                        <div class="flex -space-x-1 items-center">
+                            <img class="rounded-full w-7 h-7 shadow-lg border border-white" src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsrj8csk" alt="" srcset="" />
+                            <img class="rounded-full w-7 h-7 shadow-lg border border-white" src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsrj8cck" alt="" srcset="" />
+                            <img class="rounded-full w-7 h-7 shadow-lg border border-white" src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsfj8cck" alt="" srcset="" />
+                            <span class="pl-4 text-xs drop-shadow-lg">+8 friends are watching</span>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-black/30 to-transparent -mx-7 -mb-6 px-7 pb-6 pt-2">
+                            <span class="uppercase text-3xl font-semibold drop-shadow-lg">Inception</span>
+                            <div class="text-xs text-gray-200 mt-2">
+                                <a href="#" class="">Action</a>, <a href="#" class="">Adventure</a>,
+                                <a href="#" class="">Sci-Fi</a>
+                            </div>
+                            <div class="mt-4 flex space-x-3 items-center">
+                                <a href="#" class="px-5 py-2.5 bg-primary hover:bg-red-700 rounded-lg text-xs inline-block">Watch</a>
+                                <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg hover:bg-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mt-9">
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold text-gray-700 text-base dark:text-white">Top Stars</span>
+                        <div class="flex items-center space-x-2 fill-gray-500">
+                            <svg class="h-7 w-7 rounded-full border p-1 hover:border-primary hover:fill-primary dark:fill-white dark:hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M13.293 6.293L7.58 12l5.7 5.7 1.41-1.42 -4.3-4.3 4.29-4.293Z"></path>
+                            </svg>
+                            <svg class="h-7 w-7 rounded-full border p-1 hover:border-primary hover:fill-primary dark:fill-white dark:hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M10.7 17.707l5.7-5.71 -5.71-5.707L9.27 7.7l4.29 4.293 -4.3 4.29Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-5">
+                        <div class="relative rounded-xl overflow-hidden">
+                            <img src="https://www.jolie.de/sites/default/files/styles/image_gallery360w/public/2020-02/leonardo-dicaprio-oscars.jpg?h=64dbc2fc&itok=EH0B3oo4" class="object-cover h-full w-full -z-10" alt="" />
+                            <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
+                                <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-primary/80">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+
+                                <div class="self-center flex flex-col items-center space-y-2">
+                                    <span class="capitalize text-white font-medium drop-shadow-md">Leonardo DiCaprio</span>
+                                    <span class="text-gray-100 text-xs">+12 Movies</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/WP_-_random_-5_%2814094372762%29.jpg/319px-WP_-_random_-5_%2814094372762%29.jpg" class="object-cover w-full h-full -z-10" alt="" />
+                            <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
+                                <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-primary/80">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+
+                                <div class="self-center flex flex-col items-center space-y-2">
+                                    <span class="capitalize text-white font-medium drop-shadow-md">Joseph Gordon-Levitt</span>
+                                    <span class="text-gray-300 text-xs">+24 Movies</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden">
+                            <img src="https://img.zeit.de/kultur/film/2020-12/elliot-page-tranmann/wide__450x253__mobile__scale_1" class="object-cover h-full w-full -z-10" alt="" />
+                            <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
+                                <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-primary/80">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+
+                                <div class="self-center flex flex-col items-center space-y-2">
+                                    <span class="capitalize text-white font-medium drop-shadow-md">Elliot Page</span>
+                                    <span class="text-gray-300 text-xs">+10 Movies</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden">
+                            <img src="https://de.web.img3.acsta.net/c_310_420/pictures/16/01/19/11/06/274206.jpg" class="object-cover h-full w-full -z-10" alt="" />
+                            <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
+                                <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-primary/80">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+
+                                <div class="self-center flex flex-col items-center space-y-2">
+                                    <span class="capitalize text-white font-medium drop-shadow-md">Tom Hardy</span>
+                                    <span class="text-gray-300 text-xs">+27 Movies</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mt-9">
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold text-gray-700 text-base dark:text-white">Similar Movies</span>
+                        <div class="flex items-center space-x-2 fill-gray-500">
+                            <svg class="h-7 w-7 rounded-full border p-1 hover:border-primary hover:fill-primary dark:fill-white dark:hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M13.293 6.293L7.58 12l5.7 5.7 1.41-1.42 -4.3-4.3 4.29-4.293Z"></path>
+                            </svg>
+                            <svg class="h-7 w-7 rounded-full border p-1 hover:border-primary hover:fill-primary dark:fill-white dark:hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M10.7 17.707l5.7-5.71 -5.71-5.707L9.27 7.7l4.29 4.293 -4.3 4.29Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5">
+                        <div class="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/1/14/Tenet_movie_poster.jpg" class="h-4/5 object-cover w-full" alt="" />
+                            <div class="w-full h-1/5 bg-white dark:bg-zinc-800 dark:text-white px-3 flex items-center justify-between border-t-2 border-t-primary">
+                                <span class="capitalize font-medium truncate">Tenet</span>
+                                <div class="flex space-x-2 items-center text-xs">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>7.4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg" class="h-4/5 object-cover w-full" alt="" />
+                            <div class="w-full h-1/5 bg-white dark:bg-zinc-800 dark:text-white px-3 flex items-center justify-between border-t-2 border-t-primary">
+                                <span class="capitalize font-medium truncate">Fight Club</span>
+                                <div class="flex space-x-2 items-center text-xs">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>8.8</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/8/8e/Dune_%282021_film%29.jpg" class="h-4/5 object-cover w-full" alt="" />
+                            <div class="w-full h-1/5 bg-white dark:bg-zinc-800 dark:text-white px-3 flex items-center justify-between border-t-2 border-t-primary">
+                                <span class="capitalize font-medium truncate">Dune</span>
+                                <div class="flex space-x-2 items-center text-xs">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>8.1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="w-1/5 py-10 px-10 min-w-min border-l border-gray-300 dark:border-zinc-700 hidden lg:block">
+                <div class="relative items-center content-center flex">
+                    <span class="text-gray-400 absolute left-4 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" class="text-xs ring-1 bg-transparent ring-gray-200 dark:ring-zinc-600 focus:ring-red-300 pl-10 pr-5 text-gray-600 dark:text-white py-3 rounded-full w-full outline-none focus:ring-1" placeholder="Search ..." />
+                </div>
+
+                <div class="mt-10">
+                    <span class="font-semibold text-gray-700 dark:text-white">Popular Movies</span>
+                    <ul class="mt-4 text-gray-400 text-xs space-y-3">
+                        <li class="flex space-y-3 space-x-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg" class="w-1/3 rounded-md" alt="" />
+                            <div class="flex flex-col justify-between">
+                                <div class="flex flex-col space-y-1">
+                                    <span class="text-gray-700 dark:text-white font-semibold">The Shawshank Redemption</span>
+                                    <span class="text-xxs hidden xl:block">Drama</span>
+                                </div>
+                                <div class="flex space-x-2 items-center">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>9.2</span>
+                                </div>
+                            </div>
                         </li>
-                        <li>
-                            <a @click="smoothScroll('#features')" class="px-0 py-4 text-surface-900 dark:text-surface-0 font-medium text-xl">
-                                <span>Features</span>
-                            </a>
+                        <li class="flex space-x-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/1/1c/The_Dark_Knight_%282008_film%29.jpg" class="object-cover w-1/3 rounded-md" alt="" />
+                            <div class="flex flex-col justify-between">
+                                <div class="flex flex-col space-y-1">
+                                    <span class="text-gray-700 dark:text-white font-semibold">The Dark Knight</span>
+                                    <span class="text-xxs hidden xl:block">Action, Crime, Drama</span>
+                                </div>
+                                <div class="flex space-x-2 items-center">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>9.1</span>
+                                </div>
+                            </div>
                         </li>
-                        <li>
-                            <a @click="smoothScroll('#highlights')" class="px-0 py-4 text-surface-900 dark:text-surface-0 font-medium text-xl">
-                                <span>Highlights</span>
-                            </a>
+                        <li class="flex space-x-3">
+                            <img src="https://m.media-amazon.com/images/I/81vZ6tNxuoL._SY500_.jpg" class="object-cover w-1/3 rounded-md" alt="" />
+                            <div class="flex flex-col justify-between">
+                                <div class="flex flex-col space-y-1">
+                                    <span class="text-gray-700 dark:text-white font-semibold">John Wick 4</span>
+                                    <span class="text-xxs hidden xl:block">Action, Crime, Thriller</span>
+                                </div>
+                                <div class="flex space-x-2 items-center">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>7.4</span>
+                                </div>
+                            </div>
                         </li>
-                        <li>
-                            <a @click="smoothScroll('#pricing')" class="px-0 py-4 text-surface-900 dark:text-surface-0 font-medium text-xl">
-                                <span>Pricing</span>
-                            </a>
+                        <li class="pt-1">
+                            <a href="#" class="px-5 py-2.5 bg-primary hover:bg-red-700 rounded-lg text-center font-medium block text-white">See More</a>
                         </li>
                     </ul>
-                    <div class="flex border-t lg:border-t-0 border-surface py-4 lg:py-0 mt-4 lg:mt-0 gap-2">
-                        <Button label="Login" text as="router-link" to="/auth/login" rounded></Button>
-                        <Button label="Register" to="/auth/login" rounded></Button>
-                    </div>
                 </div>
-            </div>
-
-            <div
-                id="hero"
-                class="flex flex-col pt-6 px-6 lg:px-20 overflow-hidden"
-                style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(238, 239, 175) 0%, rgb(195, 227, 250) 100%); clip-path: ellipse(150% 87% at 93% 13%)"
-            >
-                <div class="mx-6 md:mx-20 mt-0 md:mt-6">
-                    <h1 class="text-6xl font-bold text-gray-900 leading-tight"><span class="font-light block">Eu sem integer</span>eget magna fermentum</h1>
-                    <p class="font-normal text-2xl leading-normal md:mt-4 text-gray-700">Sed blandit libero volutpat sed cras. Fames ac turpis egestas integer. Placerat in egestas erat...</p>
-                    <Button label="Get Started" as="router-link" to="/" rounded class="!text-xl mt-8 !px-4"></Button>
+                <div class="mt-10">
+                    <span class="font-semibold text-gray-700 dark:text-white">Favorites</span>
+                    <ul class="mt-4 text-gray-400 text-xs space-y-3">
+                        <li class="flex space-x-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg" class="object-cover w-1/3 rounded-md" alt="" />
+                            <div class="flex flex-col justify-between">
+                                <div class="flex flex-col space-y-1">
+                                    <span class="text-gray-700 dark:text-white font-semibold">The Matrix</span>
+                                    <span class="text-xxs hidden xl:block">Action, Sci-Fi</span>
+                                </div>
+                                <div class="flex space-x-2 items-center">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>8.7</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="flex space-x-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg" class="object-cover w-1/3 rounded-md" alt="" />
+                            <div class="flex flex-col justify-between">
+                                <div class="flex flex-col space-y-1">
+                                    <span class="text-gray-700 dark:text-white font-semibold">Interstellar</span>
+                                    <span class="text-xxs hidden xl:block">Adventure, Crime, Sci-Fi</span>
+                                </div>
+                                <div class="flex space-x-2 items-center">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>8.6</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="flex space-x-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/8/86/The_Silence_of_the_Lambs_poster.jpg" class="object-cover w-1/3 rounded-md" alt="" />
+                            <div class="flex flex-col justify-between">
+                                <div class="flex flex-col space-y-1">
+                                    <span class="text-gray-700 dark:text-white font-semibold">The Silence of the Lambs</span>
+                                    <span class="text-xxs hidden xl:block">Crime, Drama, Thriller</span>
+                                </div>
+                                <div class="flex space-x-2 items-center">
+                                    <svg class="w-8 h-5" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
+                                        <g fill="#F5C518"><rect x="0" y="0" width="100%" height="100%" rx="4"></rect></g>
+                                        <g transform="translate(8.000000, 7.000000)" fill="#000000" fill-rule="nonzero">
+                                            <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                                            <path
+                                                d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                                            ></path>
+                                            <path
+                                                d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                                            ></path>
+                                            <path
+                                                d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                                            ></path>
+                                        </g>
+                                    </svg>
+                                    <span>8.6</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="pt-1">
+                            <a href="#" class="px-5 py-2.5 bg-primary hover:bg-red-700 rounded-lg text-center font-medium block text-white">See More</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="flex justify-center md:justify-end">
-                    <img src="/demo/images/landing/screen-1.png" alt="Hero Image" class="w-9/12 md:w-auto" />
-                </div>
-            </div>
-
-            <div id="features" class="py-6 px-6 lg:px-20 mt-8 mx-0 lg:mx-20">
-                <div class="grid grid-cols-12 gap-4 justify-center">
-                    <div class="col-span-12 text-center mt-20 mb-6">
-                        <div class="text-surface-900 dark:text-surface-0 font-normal mb-2 text-4xl">Marvelous Features</div>
-                        <span class="text-muted-color text-2xl">Placerat in egestas erat...</span>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg:pr-8 lg:pb-8 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(253, 228, 165, 0.2), rgba(187, 199, 205, 0.2)), linear-gradient(180deg, rgba(253, 228, 165, 0.2), rgba(187, 199, 205, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-yellow-200 mb-4" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-users !text-2xl text-yellow-700"></i>
-                                </div>
-                                <h5 class="mb-2 text-surface-900 dark:text-surface-0">Easy to Use</h5>
-                                <span class="text-surface-600 dark:text-surface-200">Posuere morbi leo urna molestie.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg:pr-8 lg:pb-8 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 226, 237, 0.2), rgba(251, 199, 145, 0.2)), linear-gradient(180deg, rgba(253, 228, 165, 0.2), rgba(172, 180, 223, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-cyan-200 mb-4" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-palette !text-2xl text-cyan-700"></i>
-                                </div>
-                                <h5 class="mb-2 text-surface-900 dark:text-surface-0">Fresh Design</h5>
-                                <span class="text-surface-600 dark:text-surface-200">Semper risus in hendrerit.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg:pb-8 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 226, 237, 0.2), rgba(172, 180, 223, 0.2)), linear-gradient(180deg, rgba(172, 180, 223, 0.2), rgba(246, 158, 188, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-indigo-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-map !text-2xl text-indigo-700"></i>
-                                </div>
-                                <div class="mt-6 mb-1 text-surface-900 dark:text-surface-0 text-xl font-semibold">Well Documented</div>
-                                <span class="text-surface-600 dark:text-surface-200">Non arcu risus quis varius quam quisque.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg:pr-8 lg:pb-8 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(187, 199, 205, 0.2), rgba(251, 199, 145, 0.2)), linear-gradient(180deg, rgba(253, 228, 165, 0.2), rgba(145, 210, 204, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-slate-200 mb-4" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-id-card !text-2xl text-slate-700"></i>
-                                </div>
-                                <div class="mt-6 mb-1 text-surface-900 dark:text-surface-0 text-xl font-semibold">Responsive Layout</div>
-                                <span class="text-surface-600 dark:text-surface-200">Nulla malesuada pellentesque elit.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg:pr-8 lg:pb-8 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(187, 199, 205, 0.2), rgba(246, 158, 188, 0.2)), linear-gradient(180deg, rgba(145, 226, 237, 0.2), rgba(160, 210, 250, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-orange-200 mb-4" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-star !text-2xl text-orange-700"></i>
-                                </div>
-                                <div class="mt-6 mb-1 text-surface-900 dark:text-surface-0 text-xl font-semibold">Clean Code</div>
-                                <span class="text-surface-600 dark:text-surface-200">Condimentum lacinia quis vel eros.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg:pb-8 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(251, 199, 145, 0.2), rgba(246, 158, 188, 0.2)), linear-gradient(180deg, rgba(172, 180, 223, 0.2), rgba(212, 162, 221, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-pink-200 mb-4" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-moon !text-2xl text-pink-700"></i>
-                                </div>
-                                <div class="mt-6 mb-1 text-surface-900 dark:text-surface-0 text-xl font-semibold">Dark Mode</div>
-                                <span class="text-surface-600 dark:text-surface-200">Convallis tellus id interdum velit laoreet.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg:pr-8 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(160, 210, 250, 0.2)), linear-gradient(180deg, rgba(187, 199, 205, 0.2), rgba(145, 210, 204, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-teal-200 mb-4" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-shopping-cart !text-2xl text-teal-700"></i>
-                                </div>
-                                <div class="mt-6 mb-1 text-surface-900 dark:text-surface-0 text-xl font-semibold">Ready to Use</div>
-                                <span class="text-surface-600 dark:text-surface-200">Mauris sit amet massa vitae.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg:pr-8 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(212, 162, 221, 0.2)), linear-gradient(180deg, rgba(251, 199, 145, 0.2), rgba(160, 210, 250, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-blue-200 mb-4" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-globe !text-2xl text-blue-700"></i>
-                                </div>
-                                <div class="mt-6 mb-1 text-surface-900 dark:text-surface-0 text-xl font-semibold">Modern Practices</div>
-                                <span class="text-surface-600 dark:text-surface-200">Elementum nibh tellus molestie nunc non.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-12 lg:col-span-4 p-0 lg-4 mt-6 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(160, 210, 250, 0.2), rgba(212, 162, 221, 0.2)), linear-gradient(180deg, rgba(246, 158, 188, 0.2), rgba(212, 162, 221, 0.2))"
-                        >
-                            <div class="p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                                <div class="flex items-center justify-center bg-purple-200 mb-4" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                                    <i class="pi pi-fw pi-eye !text-2xl text-purple-700"></i>
-                                </div>
-                                <div class="mt-6 mb-1 text-surface-900 dark:text-surface-0 text-xl font-semibold">Privacy</div>
-                                <span class="text-surface-600 dark:text-surface-200">Neque egestas congue quisque.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="col-span-12 mt-20 mb-20 p-2 md:p-20"
-                        style="border-radius: 20px; background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #efe1af 0%, #c3dcfa 100%)"
-                    >
-                        <div class="flex flex-col justify-center items-center text-center px-4 py-4 md:py-0">
-                            <div class="text-gray-900 mb-2 text-3xl font-semibold">Joséphine Miller</div>
-                            <span class="text-gray-600 text-2xl">Peak Interactive</span>
-                            <p class="text-gray-900 sm:line-height-2 md:line-height-4 text-2xl mt-6" style="max-width: 800px">
-                                “Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”
-                            </p>
-                            <img src="/demo/images/landing/peak-logo.svg" class="mt-6" alt="Company logo" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="highlights" class="py-6 px-6 lg:px-20 mx-0 my-12 lg:mx-20">
-                <div class="text-center">
-                    <div class="text-surface-900 dark:text-surface-0 font-normal mb-2 text-4xl">Powerful Everywhere</div>
-                    <span class="text-muted-color text-2xl">Amet consectetur adipiscing elit...</span>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 mt-20 pb-2 md:pb-20">
-                    <div class="flex justify-center col-span-12 lg:col-span-6 bg-purple-100 p-0 order-1 lg:order-none" style="border-radius: 8px">
-                        <img src="/demo/images/landing/mockup.svg" class="w-11/12" alt="mockup mobile" />
-                    </div>
-
-                    <div class="col-span-12 lg:col-span-6 my-auto flex flex-col lg:items-end text-center lg:text-right gap-4">
-                        <div class="flex items-center justify-center bg-purple-200 self-center lg:self-end" style="width: 4.2rem; height: 4.2rem; border-radius: 10px">
-                            <i class="pi pi-fw pi-mobile !text-4xl text-purple-700"></i>
-                        </div>
-                        <div class="leading-none text-surface-900 dark:text-surface-0 text-3xl font-normal">Congue Quisque Egestas</div>
-                        <span class="text-surface-700 dark:text-surface-100 text-2xl leading-normal ml-0 md:ml-2" style="max-width: 650px"
-                            >Lectus arcu bibendum at varius vel pharetra vel turpis nunc. Eget aliquet nibh praesent tristique magna sit amet purus gravida. Sit amet mattis vulputate enim nulla aliquet.</span
-                        >
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 my-20 pt-2 md:pt-20">
-                    <div class="col-span-12 lg:col-span-6 my-auto flex flex-col text-center lg:text-left lg:items-start gap-4">
-                        <div class="flex items-center justify-center bg-yellow-200 self-center lg:self-start" style="width: 4.2rem; height: 4.2rem; border-radius: 10px">
-                            <i class="pi pi-fw pi-desktop !text-3xl text-yellow-700"></i>
-                        </div>
-                        <div class="leading-none text-surface-900 dark:text-surface-0 text-3xl font-normal">Celerisque Eu Ultrices</div>
-                        <span class="text-surface-700 dark:text-surface-100 text-2xl leading-normal mr-0 md:mr-2" style="max-width: 650px"
-                            >Adipiscing commodo elit at imperdiet dui. Viverra nibh cras pulvinar mattis nunc sed blandit libero. Suspendisse in est ante in. Mauris pharetra et ultrices neque ornare aenean euismod elementum nisi.</span
-                        >
-                    </div>
-
-                    <div class="flex justify-end order-1 sm:order-2 col-span-12 lg:col-span-6 bg-yellow-100 p-0" style="border-radius: 8px">
-                        <img src="/demo/images/landing/mockup-desktop.svg" class="w-11/12" alt="mockup" />
-                    </div>
-                </div>
-            </div>
-
-            <div id="pricing" class="py-6 px-6 lg:px-20 my-2 md:my-6">
-                <div class="text-center mb-6">
-                    <div class="text-surface-900 dark:text-surface-0 font-normal mb-2 text-4xl">Matchless Pricing</div>
-                    <span class="text-muted-color text-2xl">Amet consectetur adipiscing elit...</span>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 justify-between mt-20 md:mt-0">
-                    <div class="col-span-12 lg:col-span-4 p-0 md:p-4">
-                        <div class="p-4 flex flex-col border-surface-200 dark:border-surface-600 pricing-card cursor-pointer border-2 hover:border-primary duration-300 transition-all" style="border-radius: 10px">
-                            <div class="text-surface-900 dark:text-surface-0 text-center my-8 text-3xl">Free</div>
-                            <img src="/demo/images/landing/free.svg" class="w-10/12 mx-auto" alt="free" />
-                            <div class="my-8 flex flex-col items-center gap-4">
-                                <div class="flex items-center">
-                                    <span class="text-5xl font-bold mr-2 text-surface-900 dark:text-surface-0">$0</span>
-                                    <span class="text-surface-600 dark:text-surface-200">per month</span>
-                                </div>
-                                <Button label="Get Started" class="p-button-rounded border-0 ml-4 font-light leading-tight bg-blue-500 text-white"></Button>
-                            </div>
-                            <Divider class="w-full bg-surface-200"></Divider>
-                            <ul class="my-8 list-none p-0 flex text-surface-900 dark:text-surface-0 flex-col px-8">
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Responsive Layout</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Unlimited Push Messages</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">50 Support Ticket</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Free Shipping</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 lg:col-span-4 p-0 md:p-4 mt-6 md:mt-0">
-                        <div class="p-4 flex flex-col border-surface-200 dark:border-surface-600 pricing-card cursor-pointer border-2 hover:border-primary duration-300 transition-all" style="border-radius: 10px">
-                            <div class="text-surface-900 dark:text-surface-0 text-center my-8 text-3xl">Startup</div>
-                            <img src="/demo/images/landing/startup.svg" class="w-10/12 mx-auto" alt="startup" />
-                            <div class="my-8 flex flex-col items-center gap-4">
-                                <div class="flex items-center">
-                                    <span class="text-5xl font-bold mr-2 text-surface-900 dark:text-surface-0">$1</span>
-                                    <span class="text-surface-600 dark:text-surface-200">per month</span>
-                                </div>
-                                <Button label="Get Started" class="p-button-rounded border-0 ml-4 font-light leading-tight bg-blue-500 text-white"></Button>
-                            </div>
-                            <Divider class="w-full bg-surface-200"></Divider>
-                            <ul class="my-8 list-none p-0 flex text-surface-900 dark:text-surface-0 flex-col px-8">
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Responsive Layout</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Unlimited Push Messages</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">50 Support Ticket</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Free Shipping</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-span-12 lg:col-span-4 p-0 md:p-4 mt-6 md:mt-0">
-                        <div class="p-4 flex flex-col border-surface-200 dark:border-surface-600 pricing-card cursor-pointer border-2 hover:border-primary duration-300 transition-all" style="border-radius: 10px">
-                            <div class="text-surface-900 dark:text-surface-0 text-center my-8 text-3xl">Enterprise</div>
-                            <img src="/demo/images/landing/enterprise.svg" class="w-10/12 mx-auto" alt="enterprise" />
-                            <div class="my-8 flex flex-col items-center gap-4">
-                                <div class="flex items-center">
-                                    <span class="text-5xl font-bold mr-2 text-surface-900 dark:text-surface-0">$5</span>
-                                    <span class="text-surface-600 dark:text-surface-200">per month</span>
-                                </div>
-                                <Button label="Get Started" class="p-button-rounded border-0 ml-4 font-light leading-tight bg-blue-500 text-white"></Button>
-                            </div>
-                            <Divider class="w-full bg-surface-200"></Divider>
-                            <ul class="my-8 list-none p-0 flex text-surface-900 dark:text-surface-0 flex-col px-8">
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Responsive Layout</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Unlimited Push Messages</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">50 Support Ticket</span>
-                                </li>
-                                <li class="py-2">
-                                    <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                                    <span class="text-xl leading-normal">Free Shipping</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="py-6 px-6 mx-0 mt-20 lg:mx-20">
-                <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-12 md:col-span-2">
-                        <a @click="smoothScroll('#home')" class="flex flex-wrap items-center justify-center md:justify-start md:mb-0 mb-4 cursor-pointer">
-                            <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-14 mr-2">
-                                <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M17.1637 19.2467C17.1566 19.4033 17.1529 19.561 17.1529 19.7194C17.1529 25.3503 21.7203 29.915 27.3546 29.915C32.9887 29.915 37.5561 25.3503 37.5561 19.7194C37.5561 19.5572 37.5524 19.3959 37.5449 19.2355C38.5617 19.0801 39.5759 18.9013 40.5867 18.6994L40.6926 18.6782C40.7191 19.0218 40.7326 19.369 40.7326 19.7194C40.7326 27.1036 34.743 33.0896 27.3546 33.0896C19.966 33.0896 13.9765 27.1036 13.9765 19.7194C13.9765 19.374 13.9896 19.0316 14.0154 18.6927L14.0486 18.6994C15.0837 18.9062 16.1223 19.0886 17.1637 19.2467ZM33.3284 11.4538C31.6493 10.2396 29.5855 9.52381 27.3546 9.52381C25.1195 9.52381 23.0524 10.2421 21.3717 11.4603C20.0078 11.3232 18.6475 11.1387 17.2933 10.907C19.7453 8.11308 23.3438 6.34921 27.3546 6.34921C31.36 6.34921 34.9543 8.10844 37.4061 10.896C36.0521 11.1292 34.692 11.3152 33.3284 11.4538ZM43.826 18.0518C43.881 18.6003 43.9091 19.1566 43.9091 19.7194C43.9091 28.8568 36.4973 36.2642 27.3546 36.2642C18.2117 36.2642 10.8 28.8568 10.8 19.7194C10.8 19.1615 10.8276 18.61 10.8816 18.0663L7.75383 17.4411C7.66775 18.1886 7.62354 18.9488 7.62354 19.7194C7.62354 30.6102 16.4574 39.4388 27.3546 39.4388C38.2517 39.4388 47.0855 30.6102 47.0855 19.7194C47.0855 18.9439 47.0407 18.1789 46.9536 17.4267L43.826 18.0518ZM44.2613 9.54743L40.9084 10.2176C37.9134 5.95821 32.9593 3.1746 27.3546 3.1746C21.7442 3.1746 16.7856 5.96385 13.7915 10.2305L10.4399 9.56057C13.892 3.83178 20.1756 0 27.3546 0C34.5281 0 40.8075 3.82591 44.2613 9.54743Z"
-                                    fill="var(--primary-color)"
-                                />
-                                <mask id="mask0_1413_1551" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="8" width="54" height="11">
-                                    <path d="M27 18.3652C10.5114 19.1944 0 8.88892 0 8.88892C0 8.88892 16.5176 14.5866 27 14.5866C37.4824 14.5866 54 8.88892 54 8.88892C54 8.88892 43.4886 17.5361 27 18.3652Z" fill="var(--primary-color)" />
-                                </mask>
-                                <g mask="url(#mask0_1413_1551)">
-                                    <path
-                                        d="M-4.673e-05 8.88887L3.73084 -1.91434L-8.00806 17.0473L-4.673e-05 8.88887ZM27 18.3652L26.4253 6.95109L27 18.3652ZM54 8.88887L61.2673 17.7127L50.2691 -1.91434L54 8.88887ZM-4.673e-05 8.88887C-8.00806 17.0473 -8.00469 17.0505 -8.00132 17.0538C-8.00018 17.055 -7.99675 17.0583 -7.9944 17.0607C-7.98963 17.0653 -7.98474 17.0701 -7.97966 17.075C-7.96949 17.0849 -7.95863 17.0955 -7.94707 17.1066C-7.92401 17.129 -7.89809 17.1539 -7.86944 17.1812C-7.8122 17.236 -7.74377 17.3005 -7.66436 17.3743C-7.50567 17.5218 -7.30269 17.7063 -7.05645 17.9221C-6.56467 18.3532 -5.89662 18.9125 -5.06089 19.5534C-3.39603 20.83 -1.02575 22.4605 1.98012 24.0457C7.97874 27.2091 16.7723 30.3226 27.5746 29.7793L26.4253 6.95109C20.7391 7.23699 16.0326 5.61231 12.6534 3.83024C10.9703 2.94267 9.68222 2.04866 8.86091 1.41888C8.45356 1.10653 8.17155 0.867278 8.0241 0.738027C7.95072 0.673671 7.91178 0.637576 7.90841 0.634492C7.90682 0.63298 7.91419 0.639805 7.93071 0.65557C7.93897 0.663455 7.94952 0.673589 7.96235 0.686039C7.96883 0.692262 7.97582 0.699075 7.98338 0.706471C7.98719 0.710167 7.99113 0.714014 7.99526 0.718014C7.99729 0.720008 8.00047 0.723119 8.00148 0.724116C8.00466 0.727265 8.00796 0.730446 -4.673e-05 8.88887ZM27.5746 29.7793C37.6904 29.2706 45.9416 26.3684 51.6602 23.6054C54.5296 22.2191 56.8064 20.8465 58.4186 19.7784C59.2265 19.2431 59.873 18.7805 60.3494 18.4257C60.5878 18.2482 60.7841 18.0971 60.9374 17.977C61.014 17.9169 61.0799 17.8645 61.1349 17.8203C61.1624 17.7981 61.1872 17.7781 61.2093 17.7602C61.2203 17.7512 61.2307 17.7427 61.2403 17.7348C61.2452 17.7308 61.2499 17.727 61.2544 17.7233C61.2566 17.7215 61.2598 17.7188 61.261 17.7179C61.2642 17.7153 61.2673 17.7127 54 8.88887C46.7326 0.0650536 46.7357 0.0625219 46.7387 0.0600241C46.7397 0.0592345 46.7427 0.0567658 46.7446 0.0551857C46.7485 0.0520238 46.7521 0.0489887 46.7557 0.0460799C46.7628 0.0402623 46.7694 0.0349487 46.7753 0.0301318C46.7871 0.0204986 46.7966 0.0128495 46.8037 0.00712562C46.818 -0.00431848 46.8228 -0.00808311 46.8184 -0.00463784C46.8096 0.00228345 46.764 0.0378652 46.6828 0.0983779C46.5199 0.219675 46.2165 0.439161 45.7812 0.727519C44.9072 1.30663 43.5257 2.14765 41.7061 3.02677C38.0469 4.79468 32.7981 6.63058 26.4253 6.95109L27.5746 29.7793ZM54 8.88887C50.2691 -1.91433 50.27 -1.91467 50.271 -1.91498C50.2712 -1.91506 50.272 -1.91535 50.2724 -1.9155C50.2733 -1.91581 50.274 -1.91602 50.2743 -1.91616C50.2752 -1.91643 50.275 -1.91636 50.2738 -1.91595C50.2714 -1.91515 50.2652 -1.91302 50.2552 -1.9096C50.2351 -1.90276 50.1999 -1.89078 50.1503 -1.874C50.0509 -1.84043 49.8938 -1.78773 49.6844 -1.71863C49.2652 -1.58031 48.6387 -1.377 47.8481 -1.13035C46.2609 -0.635237 44.0427 0.0249875 41.5325 0.6823C36.215 2.07471 30.6736 3.15796 27 3.15796V26.0151C33.8087 26.0151 41.7672 24.2495 47.3292 22.7931C50.2586 22.026 52.825 21.2618 54.6625 20.6886C55.5842 20.4011 56.33 20.1593 56.8551 19.986C57.1178 19.8993 57.3258 19.8296 57.4735 19.7797C57.5474 19.7548 57.6062 19.7348 57.6493 19.72C57.6709 19.7127 57.6885 19.7066 57.7021 19.7019C57.7089 19.6996 57.7147 19.6976 57.7195 19.696C57.7219 19.6952 57.7241 19.6944 57.726 19.6938C57.7269 19.6934 57.7281 19.693 57.7286 19.6929C57.7298 19.6924 57.7309 19.692 54 8.88887ZM27 3.15796C23.3263 3.15796 17.7849 2.07471 12.4674 0.6823C9.95717 0.0249875 7.73904 -0.635237 6.15184 -1.13035C5.36118 -1.377 4.73467 -1.58031 4.3155 -1.71863C4.10609 -1.78773 3.94899 -1.84043 3.84961 -1.874C3.79994 -1.89078 3.76474 -1.90276 3.74471 -1.9096C3.73469 -1.91302 3.72848 -1.91515 3.72613 -1.91595C3.72496 -1.91636 3.72476 -1.91643 3.72554 -1.91616C3.72593 -1.91602 3.72657 -1.91581 3.72745 -1.9155C3.72789 -1.91535 3.72874 -1.91506 3.72896 -1.91498C3.72987 -1.91467 3.73084 -1.91433 -4.673e-05 8.88887C-3.73093 19.692 -3.72983 19.6924 -3.72868 19.6929C-3.72821 19.693 -3.72698 19.6934 -3.72603 19.6938C-3.72415 19.6944 -3.72201 19.6952 -3.71961 19.696C-3.71482 19.6976 -3.70901 19.6996 -3.7022 19.7019C-3.68858 19.7066 -3.67095 19.7127 -3.6494 19.72C-3.60629 19.7348 -3.54745 19.7548 -3.47359 19.7797C-3.32589 19.8296 -3.11788 19.8993 -2.85516 19.986C-2.33008 20.1593 -1.58425 20.4011 -0.662589 20.6886C1.17485 21.2618 3.74125 22.026 6.67073 22.7931C12.2327 24.2495 20.1913 26.0151 27 26.0151V3.15796Z"
-                                        fill="var(--primary-color)"
-                                    />
-                                </g>
-                            </svg>
-                            <h4 class="font-medium text-3xl text-surface-900 dark:text-surface-0">SAKAI</h4>
-                        </a>
-                    </div>
-
-                    <div class="col-span-12 md:col-span-10">
-                        <div class="grid grid-cols-12 gap-8 text-center md:text-left">
-                            <div class="col-span-12 md:col-span-3">
-                                <h4 class="font-medium text-2xl leading-normal mb-4 text-surface-900 dark:text-surface-0">Company</h4>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">About Us</a>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">News</a>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">Investor Relations</a>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">Careers</a>
-                                <a class="leading-normal text-xl block cursor-pointer text-surface-700 dark:text-surface-100">Media Kit</a>
-                            </div>
-
-                            <div class="col-span-12 md:col-span-3">
-                                <h4 class="font-medium text-2xl leading-normal mb-4 text-surface-900 dark:text-surface-0">Resources</h4>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">Get Started</a>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">Learn</a>
-                                <a class="leading-normal text-xl block cursor-pointer text-surface-700 dark:text-surface-100">Case Studies</a>
-                            </div>
-
-                            <div class="col-span-12 md:col-span-3">
-                                <h4 class="font-medium text-2xl leading-normal mb-4 text-surface-900 dark:text-surface-0">Community</h4>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">Discord</a>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">Events<img src="/demo/images/landing/new-badge.svg" class="ml-2" /></a>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">FAQ</a>
-                                <a class="leading-normal text-xl block cursor-pointer text-surface-700 dark:text-surface-100">Blog</a>
-                            </div>
-
-                            <div class="col-span-12 md:col-span-3">
-                                <h4 class="font-medium text-2xl leading-normal mb-4 text-surface-900 dark:text-surface-0">Legal</h4>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">Brand Policy</a>
-                                <a class="leading-normal text-xl block cursor-pointer mb-2 text-surface-700 dark:text-surface-100">Privacy Policy</a>
-                                <a class="leading-normal text-xl block cursor-pointer text-surface-700 dark:text-surface-100">Terms of Service</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </aside>
+            <!-- /Right Sidebar -->
         </div>
-    </div>
+    </body>
 </template>
