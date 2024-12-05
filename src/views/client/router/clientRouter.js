@@ -1,7 +1,13 @@
 export default [
     {
-        path: '/home-page',
-        name: 'home-page',
-        component: () => import('@/views/client/pages/HomePage.vue')
+        path: '/client',
+        component: () => import('@/views/client/layouts/AppLayout.vue'),
+        children: [
+            {
+                path: '/client',
+                name: 'home',
+                component: () => import('@/views/client/pages/HomePage.vue')
+            }
+        ]
     }
 ];

@@ -17,7 +17,7 @@ const model = ref([
             {
                 label: 'Landing',
                 icon: 'pi pi-fw pi-globe',
-                to: '/home-page'
+                to: '/client'
             },
             {
                 label: 'Auth',
