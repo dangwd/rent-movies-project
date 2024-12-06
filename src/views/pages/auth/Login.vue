@@ -2,7 +2,9 @@
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue';
 import { useAuthStore } from '@/store';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 const store = useAuthStore();
+const router = useRouter();
 const email = ref('');
 const password = ref('');
 const checked = ref(false);
@@ -13,7 +15,11 @@ const handleLogin = async () => {
         password: password.value
     };
     const res = await store.login(data);
-    console.log(res);
+    if (res.status === 1) {
+        router.push({ name: 'home' });
+    } else {
+        console.error(res);
+    }
 };
 </script>
 
@@ -24,25 +30,25 @@ const handleLogin = async () => {
             <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
                 <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
                     <div class="text-center mb-8">
-                        <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome to PrimeLand!</div>
-                        <span class="text-muted-color font-medium">Sign in to continue</span>
+                        <div class="dark:text-surface-0 text-2xl text-primary font-medium mb-4">Welcome to WMovie!</div>
+                        <span class="text-muted-color font-medium">Đăng nhập để tiếp tục!</span>
                     </div>
 
                     <div>
-                        <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
+                        <label for="email1" class="block text-surface-900 dark:text-surface-0 text-base font-medium mb-2">Email</label>
                         <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[30rem] mb-8" v-model="email" />
 
-                        <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
+                        <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-base mb-2">Mật khẩu</label>
                         <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true" class="mb-4" fluid :feedback="false"></Password>
 
                         <div class="flex items-center justify-between mt-2 mb-8 gap-8">
                             <div class="flex items-center">
                                 <Checkbox v-model="checked" id="rememberme1" binary class="mr-2"></Checkbox>
-                                <label for="rememberme1">Remember me</label>
+                                <label for="rememberme1">Nhớ mật khẩu</label>
                             </div>
-                            <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">Forgot password?</span>
+                            <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">Quên mật khẩu?</span>
                         </div>
-                        <Button label="Sign In" class="w-full" @click="handleLogin()" to="/"></Button>
+                        <Button label="Đăng nhập" class="w-full" @click="handleLogin()"></Button>
                     </div>
                 </div>
             </div>
