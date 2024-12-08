@@ -3,6 +3,7 @@ import AppSidebarLeft from './AppSidebarLeft.vue';
 import AppSidebarRight from './AppSidebarRight.vue';
 </script>
 <template>
+    <Toast />
     <body class="font-montserrat text-sm bg-white dark:bg-zinc-900">
         <div class="flex min-h-screen 2xl:max-w-screen-2xl 2xl:mx-auto 2xl:border-x-2 2xl:border-gray-200 dark:2xl:border-zinc-700">
             <!-- Left Sidebar -->

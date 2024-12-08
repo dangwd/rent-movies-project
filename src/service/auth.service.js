@@ -24,5 +24,35 @@ class AuthServices {
                 return res.data;
             });
     }
+    funcRegister(user) {
+        const formData = new URLSearchParams();
+        for (const key in user) {
+            formData.append(key, user[key]);
+        }
+        return axios
+            .post(api + 'register', formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then((res) => {
+                return res.data;
+            });
+    }
+    funcSignout(user) {
+        const formData = new URLSearchParams();
+        for (const key in user) {
+            formData.append(key, user[key]);
+        }
+        return axios
+            .post(api + 'logout', formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then((res) => {
+                return res.data;
+            });
+    }
 }
 export default new AuthServices();

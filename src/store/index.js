@@ -29,6 +29,34 @@ export const useAuthStore = defineStore('auth', {
                 };
             }
         },
+        async register(userCre) {
+            try {
+                const res = await authService.funcRegister(userCre);
+                this.loginSuccess(user);
+                const message = `Đăng ký thành công!`;
+                return {
+                    status: 1,
+                    type: 'Register',
+                    user,
+                    message
+                };
+            } catch (error) {
+                this.loginFail();
+                return {
+                    status: 0,
+                    type: 'Register',
+                    message: error
+                };
+            }
+        },
+        async logout() {
+            try {
+                const res = await authService.funcSignout();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
         loginSuccess(user) {
             this.status.loggedIn = true;
             this.user = user;
