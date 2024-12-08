@@ -1,4 +1,3 @@
-
 import AppLayout from '@/layout/AppLayout.vue';
 
 export default [
@@ -9,7 +8,11 @@ export default [
             {
                 path: '/',
                 name: 'dashboard',
-                component: () => import('@/views/Dashboard.vue')
+                component: () => import('@/views/Dashboard.vue'),
+                meta: {
+                    requiresAuth: true,
+                    roles: 'A'
+                }
             }
         ]
     },
