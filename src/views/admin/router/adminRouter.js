@@ -13,6 +13,11 @@ export default [
                     requiresAuth: true,
                     roles: 'A'
                 }
+            },
+            {
+                path: '/man/actors',
+                name: 'actors',
+                component: () => import('@/views/admin/pages/ActorsMan.vue')
             }
         ]
     },
