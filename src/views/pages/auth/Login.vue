@@ -9,26 +9,26 @@ const { proxy } = getCurrentInstance();
 const toast = useToast();
 const store = useAuthStore();
 const router = useRouter();
-const email = ref('');
+const username = ref('');
 const password = ref('');
 const checked = ref(false);
 const loginForm = ref(true);
 const handleLogin = async () => {
     const data = {
-        email: email.value,
+        username: username.value,
         password: password.value
     };
     const res = await store.login(data);
     if (res.status === 1) {
         router.push({ name: 'home' });
     } else {
-        console.error(res);
+        proxy.$notify('E', res.message.response.data.message, toast);
     }
 };
 
 const handleRegister = async () => {
     const data = {
-        email: email.value,
+        username: username.value,
         password: password.value
     };
     const res = await store.register(data);
@@ -55,7 +55,7 @@ const handleRegister = async () => {
 
                     <div v-if="loginForm">
                         <label for="email1" class="block text-surface-900 dark:text-surface-0 text-base font-medium mb-2">Email</label>
-                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[30rem] mb-8" v-model="email" />
+                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[30rem] mb-8" v-model="username" />
 
                         <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-base mb-2">Mật khẩu</label>
                         <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true" class="mb-4" fluid :feedback="false"></Password>
@@ -75,7 +75,7 @@ const handleRegister = async () => {
 
                     <div v-else>
                         <label for="email1" class="block text-surface-900 dark:text-surface-0 text-base font-medium mb-2">Email</label>
-                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[30rem] mb-8" v-model="email" />
+                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[30rem] mb-8" v-model="username" />
 
                         <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-base mb-2">Mật khẩu</label>
                         <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true" class="mb-4" fluid :feedback="false"></Password>

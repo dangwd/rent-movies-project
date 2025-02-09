@@ -47,7 +47,7 @@ function hideDialog() {
     submitted.value = false;
 }
 
-function saveProduct() {
+function saveActor() {
     submitted.value = true;
 }
 
@@ -153,7 +153,7 @@ function deleteSelectedProducts() {
 
             <template #footer>
                 <Button label="Hủy" icon="pi pi-times" text @click="hideDialog" />
-                <Button label="Xác nhận" icon="pi pi-check" @click="saveProduct" />
+                <Button label="Xác nhận" icon="pi pi-check" @click="saveActor" />
             </template>
         </Dialog>
 
