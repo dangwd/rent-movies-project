@@ -18,6 +18,16 @@ export default [
                 path: '/man/actors',
                 name: 'actors',
                 component: () => import('@/views/admin/pages/ActorsMan.vue')
+            },
+            {
+                path: '/man/movies',
+                name: 'movies',
+                component: () => import('@/views/admin/pages/MoviesMan.vue')
+            },
+            {
+                path: '/man/genre',
+                name: 'genre',
+                component: () => import('@/views/admin/pages/GenreMan.vue')
             }
         ]
     },
