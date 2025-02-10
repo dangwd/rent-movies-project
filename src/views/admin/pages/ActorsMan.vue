@@ -130,6 +130,7 @@ function deleteSelectedProducts() {
                     <InputText id="name" v-model.trim="actorDetail.name" required="true" autofocus :invalid="submitted && !actorDetail.name" fluid />
                     <small v-if="submitted && !actorDetail.name" class="text-red-500">Name is required.</small>
                 </div>
+
                 <div>
                     <label for="description" class="block font-bold mb-3">Mô tả</label>
                     <Textarea id="description" v-model="actorDetail.description" required="true" rows="3" cols="20" fluid />
@@ -138,22 +139,10 @@ function deleteSelectedProducts() {
                     <label for="inventoryStatus" class="block font-bold mb-3">Trạng thái</label>
                     <Select id="inventoryStatus" :options="statuses" optionLabel="label" placeholder="Chọn trạng thái" fluid></Select>
                 </div>
-
-                <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-6">
-                        <label for="price" class="block font-bold mb-3">Price</label>
-                        <InputNumber id="price" v-model="actorDetail.price" mode="currency" currency="USD" locale="en-US" fluid />
-                    </div>
-                    <div class="col-span-6">
-                        <label for="quantity" class="block font-bold mb-3">Quantity</label>
-                        <InputNumber id="quantity" v-model="actorDetail.quantity" integeronly fluid />
-                    </div>
-                </div>
             </div>
-
             <template #footer>
                 <Button label="Hủy" icon="pi pi-times" text @click="hideDialog" />
-                <Button label="Xác nhận" icon="pi pi-check" @click="saveActor" />
+                <Button label="Xác nhận" icon="pi pi-check" @click="saveActor()" />
             </template>
         </Dialog>
 
