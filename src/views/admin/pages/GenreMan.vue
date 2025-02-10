@@ -1,72 +1,89 @@
 <script setup>
 import API from '@/api/api-main';
 import { useToast } from 'primevue/usetoast';
-import { onMounted, ref } from 'vue';
+import { getCurrentInstance, onMounted, ref } from 'vue';
+const { proxy } = getCurrentInstance();
+const toast = useToast();
 
 onMounted(() => {
-    fetchAllActors();
+    fetchAllGenres();
 });
 
-const toast = useToast();
 const dt = ref();
-const Actors = ref();
-const productDialog = ref(false);
+const Genres = ref();
+const genresDialog = ref(false);
 const deleteProductDialog = ref(false);
 const deleteProductsDialog = ref(false);
-const actorDetail = ref({});
+const genreDetail = ref({});
 const selectedProducts = ref();
-const statuses = ref([
-    {
-        label: 'Hoạt động',
-        value: true
-    },
-    {
-        label: 'Dừng Hoạt động',
-        value: false
-    }
-]);
+
 const submitted = ref(false);
 
-const fetchAllActors = async () => {
+const fetchAllGenres = async () => {
     try {
-        const res = await API.get(`actors?skip=0&limit=20`);
-        Actors.value = res.data.metadata;
+        const res = await API.get(`genres?skip=0&limit=20`);
+        Genres.value = res.data.metadata;
     } catch (error) {
         console.log(error);
     }
 };
 
-function openNew() {
-    actorDetail.value = {};
+const openNew = async (data) => {
+    if (!data._id) {
+        genresDialog.value = true;
+        return (genreDetail.value = {});
+    }
+    try {
+        const res = await API.get(`genre/${data._id}`);
+        genreDetail.value = res.data.metadata;
+    } catch (error) {
+        console.log(error);
+    }
     submitted.value = false;
-    productDialog.value = true;
-}
+    genresDialog.value = true;
+};
 
 function hideDialog() {
-    productDialog.value = false;
+    genresDialog.value = false;
     submitted.value = false;
 }
 
-function saveActor() {
+const saveGenre = async () => {
+    let data = { ...genreDetail.value };
+    let API_EP = data._id ? `genre/${data._id}` : `genre`;
+    let FUNC_API = data._id ? API.updatev2(API_EP, data) : API.create(API_EP, data);
     submitted.value = true;
-}
+    try {
+        const res = await FUNC_API;
+        if (res.data) {
+            genresDialog.value = false;
+            proxy.$notify('S', 'Thành công!', toast);
+            fetchAllGenres();
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 const deleteActorDlg = (data) => {
-    actorDetail.value = data;
+    genreDetail.value = data;
     deleteProductDialog.value = true;
 };
 
 const confirmDeleteSelected = async () => {
     try {
-        const res = await API.delete(`actor/${actorDetail.value._id}`);
-        if (res.data) {
+        const res = await API.delete(`genre/${genreDetail.value._id}`);
+        if (res) {
+            proxy.$notify('S', 'Thành công!', toast);
             deleteProductDialog.value = true;
         }
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 function deleteSelectedProducts() {
-    Actors.value = Actors.value.filter((val) => !selectedProducts.value.includes(val));
+    Genres.value = Genres.value.filter((val) => !selectedProducts.value.includes(val));
     deleteProductsDialog.value = false;
     selectedProducts.value = null;
 }
@@ -84,10 +101,10 @@ function deleteSelectedProducts() {
                 </template>
             </Toolbar>
 
-            <DataTable ref="dt" v-model:selection="selectedProducts" showGridlines :value="Actors" dataKey="id" :paginator="true" :rows="10" :rowsPerPageOptions="[5, 10, 25]">
+            <DataTable ref="dt" v-model:selection="selectedProducts" showGridlines :value="Genres" dataKey="id" :paginator="true" :rows="10" :rowsPerPageOptions="[5, 10, 25]">
                 <template #header>
                     <div class="flex flex-wrap gap-2 items-center justify-between">
-                        <h4 class="m-0">Danh Sách Phim</h4>
+                        <h4 class="m-0">Danh Sách Thể loại</h4>
                         <IconField>
                             <InputIcon>
                                 <i class="pi pi-search" />
@@ -101,19 +118,12 @@ function deleteSelectedProducts() {
                         {{ sp.index + 1 }}
                     </template>
                 </Column>
-                <Column field="movieName" header="Tên phim"></Column>
-
-                <Column field="movieDescription" header="Mô tả"></Column>
-                <Column field="placeOfBirth" header="Nơi sinh"></Column>
-                <Column field="rating" header="Rate"></Column>
-                <Column field="runTime" header="Thời lượng"></Column>
-                <Column field="releaseDate" header="Ngày ra mắt"></Column>
-                <Column field="budget" header="Thời lượng"></Column>
-                <Column field="language" header="Ngôn ngữ"></Column>
+                <Column field="genreName" header="Thể loại"></Column>
+                <Column field="genreDescription" header="Mô tả"></Column>
                 <Column field="" header="Thao tác">
                     <template #body="sp">
                         <div class="flex gap-2">
-                            <Button @click="openNew" text icon="pi pi-eye"></Button>
+                            <Button @click="openNew(sp.data)" text icon="pi pi-eye"></Button>
                             <Button @click="deleteActorDlg(sp.data)" text icon="pi pi-trash" severity="danger"></Button>
                         </div>
                     </template>
@@ -121,46 +131,30 @@ function deleteSelectedProducts() {
             </DataTable>
         </div>
 
-        <Dialog v-model:visible="productDialog" :style="{ width: '450px' }" header="Phim" :modal="true">
+        <Dialog v-model:visible="genresDialog" :style="{ width: '450px' }" header="Thể loại" :modal="true">
             <div class="flex flex-col gap-6">
-                <img v-if="actorDetail.image" :src="`https://primefaces.org/cdn/primevue/images/product/${actorDetail.image}`" :alt="actorDetail.image" class="block m-auto pb-4" />
                 <div>
-                    <label for="name" class="block font-bold mb-3">Tên phim</label>
-                    <InputText id="name" v-model.trim="actorDetail.name" required="true" autofocus :invalid="submitted && !actorDetail.name" fluid />
-                    <small v-if="submitted && !actorDetail.name" class="text-red-500">Name is required.</small>
+                    <label for="name" class="block font-bold mb-3">Thể loại</label>
+                    <InputText id="name" v-model.trim="genreDetail.genreName" required="true" autofocus :invalid="submitted && !genreDetail.genreName" fluid />
+                    <small v-if="submitted && !genreDetail.genreName" class="text-red-500">Name is required.</small>
                 </div>
                 <div>
                     <label for="description" class="block font-bold mb-3">Mô tả</label>
-                    <Textarea id="description" v-model="actorDetail.description" required="true" rows="3" cols="20" fluid />
-                </div>
-                <div>
-                    <label for="inventoryStatus" class="block font-bold mb-3">Trạng thái</label>
-                    <Select id="inventoryStatus" :options="statuses" optionLabel="label" placeholder="Chọn trạng thái" fluid></Select>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-6">
-                        <label for="price" class="block font-bold mb-3">Price</label>
-                        <InputNumber id="price" v-model="actorDetail.price" mode="currency" currency="USD" locale="en-US" fluid />
-                    </div>
-                    <div class="col-span-6">
-                        <label for="quantity" class="block font-bold mb-3">Quantity</label>
-                        <InputNumber id="quantity" v-model="actorDetail.quantity" integeronly fluid />
-                    </div>
+                    <Textarea id="description" v-model="genreDetail.genreDescription" required="true" rows="3" cols="20" fluid />
                 </div>
             </div>
 
             <template #footer>
                 <Button label="Hủy" icon="pi pi-times" text @click="hideDialog" />
-                <Button label="Xác nhận" icon="pi pi-check" @click="saveActor" />
+                <Button label="Xác nhận" icon="pi pi-check" @click="saveGenre" />
             </template>
         </Dialog>
 
         <Dialog v-model:visible="deleteProductDialog" :style="{ width: '450px' }" header="Xác nhận" :modal="true">
             <div class="flex items-center gap-4">
                 <i class="pi pi-exclamation-triangle !text-3xl" />
-                <span v-if="actorDetail"
-                    >Xác nhận xóa <b>{{ actorDetail.actorName }}</b
+                <span v-if="genreDetail"
+                    >Xác nhận xóa <b>{{ genreDetail.genreName }}</b
                     >?</span
                 >
             </div>
@@ -173,7 +167,7 @@ function deleteSelectedProducts() {
         <Dialog v-model:visible="deleteProductsDialog" :style="{ width: '450px' }" header="Confirm" :modal="true">
             <div class="flex items-center gap-4">
                 <i class="pi pi-exclamation-triangle !text-3xl" />
-                <span v-if="actorDetail">Are you sure you want to delete the selected products?</span>
+                <span v-if="genreDetail">Are you sure you want to delete the selected products?</span>
             </div>
             <template #footer>
                 <Button label="No" icon="pi pi-times" text @click="deleteProductsDialog = false" />

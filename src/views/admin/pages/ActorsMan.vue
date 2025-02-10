@@ -1,16 +1,19 @@
 <script setup>
 import API from '@/api/api-main';
 import { useToast } from 'primevue/usetoast';
-import { onMounted, ref } from 'vue';
+
+import { getCurrentInstance, onMounted, ref } from 'vue';
+const { proxy } = getCurrentInstance();
+const toast = useToast();
 
 onMounted(() => {
     fetchAllActors();
 });
 
-const toast = useToast();
+const formData = new FormData();
 const dt = ref();
 const Actors = ref();
-const productDialog = ref(false);
+const actorDialog = ref(false);
 const deleteProductDialog = ref(false);
 const deleteProductsDialog = ref(false);
 const actorDetail = ref({});
@@ -36,20 +39,49 @@ const fetchAllActors = async () => {
     }
 };
 
-function openNew() {
-    actorDetail.value = {};
+const openNew = async (data) => {
+    if (data._id) {
+        try {
+            const res = await API.get(`actor/${data._id}`);
+            console.log(res.data);
+            actorDetail.value = res.data.metadata;
+        } catch (error) {
+            console.log(error);
+        }
+    }
     submitted.value = false;
-    productDialog.value = true;
-}
+    actorDialog.value = true;
+};
 
 function hideDialog() {
-    productDialog.value = false;
+    actorDialog.value = false;
     submitted.value = false;
 }
 
-function saveActor() {
+const saveActor = async () => {
     submitted.value = true;
-}
+
+    let data = { ...actorDetail.value };
+    if (data._id) {
+        delete actorDetail.value.images;
+    }
+    let URL_ENDPOINT = data._id ? `actor/${data._id}` : `actor`;
+    formData.append('items', JSON.stringify(data));
+    let FUNC_API = data._id ? API.updatev2(URL_ENDPOINT, formData) : API.create(URL_ENDPOINT, formData);
+    try {
+        const res = await FUNC_API;
+        if (res.data) {
+            fetchAllActors();
+            proxy.$notify('S', 'Thao tác thành công!', toast);
+            actorDialog.value = false;
+        }
+    } catch (error) {
+        console.log(error);
+    } finally {
+        formData.delete('items');
+        formData.delete('images');
+    }
+};
 
 const deleteActorDlg = (data) => {
     actorDetail.value = data;
@@ -60,11 +92,21 @@ const confirmDeleteSelected = async () => {
     try {
         const res = await API.delete(`actor/${actorDetail.value._id}`);
         if (res.data) {
-            deleteProductDialog.value = true;
+            fetchAllActors();
+            deleteProductDialog.value = false;
+            proxy.$notify();
         }
     } catch (error) {}
 };
-
+const Openfile = () => {
+    document.querySelectorAll('.click-file')[0].click();
+};
+const UploadFileLocal = async (event, index) => {
+    const file = event.target.files[0];
+    formData.append('images', file);
+    document.querySelectorAll('.click-file')[index].value = '';
+    actorDetail.value.files = URL.createObjectURL(file);
+};
 function deleteSelectedProducts() {
     Actors.value = Actors.value.filter((val) => !selectedProducts.value.includes(val));
     deleteProductsDialog.value = false;
@@ -110,11 +152,16 @@ function deleteSelectedProducts() {
 
                 <Column field="actorDescription" header="Mô tả"></Column>
                 <Column field="placeOfBirth" header="Nơi sinh"></Column>
+                <Column field="birthDay" header="Ngày sinh">
+                    <template #body="sp">
+                        {{ sp.data.birthDay }}
+                    </template>
+                </Column>
                 <Column field="status" header="Trạng thái"></Column>
                 <Column field="" header="Thao tác">
                     <template #body="sp">
                         <div class="flex gap-2">
-                            <Button @click="openNew" text icon="pi pi-eye"></Button>
+                            <Button @click="openNew(sp.data)" text icon="pi pi-eye"></Button>
                             <Button @click="deleteActorDlg(sp.data)" text icon="pi pi-trash" severity="danger"></Button>
                         </div>
                     </template>
@@ -122,24 +169,46 @@ function deleteSelectedProducts() {
             </DataTable>
         </div>
 
-        <Dialog v-model:visible="productDialog" :style="{ width: '450px' }" header="Diễn viên" :modal="true">
-            <div class="flex flex-col gap-6">
-                <img v-if="actorDetail.image" :src="`https://primefaces.org/cdn/primevue/images/product/${actorDetail.image}`" :alt="actorDetail.image" class="block m-auto pb-4" />
-                <div>
-                    <label for="name" class="block font-bold mb-3">Tên diễn viên</label>
-                    <InputText id="name" v-model.trim="actorDetail.name" required="true" autofocus :invalid="submitted && !actorDetail.name" fluid />
-                    <small v-if="submitted && !actorDetail.name" class="text-red-500">Name is required.</small>
+        <Dialog v-model:visible="actorDialog" :style="{ width: '70%' }" header="Diễn viên" :modal="true">
+            <div class="grid grid-cols-12">
+                <div class="col-span-4">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="rounded-full">
+                            <Image crossorigin="anonymous" :src="actorDetail?.images[0]" alt="Image" width="200" />
+                        </div>
+                        <div>
+                            <Button label="Chọn ảnh" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />
+                        </div>
+                        <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
+                    </div>
                 </div>
-
-                <div>
-                    <label for="description" class="block font-bold mb-3">Mô tả</label>
-                    <Textarea id="description" v-model="actorDetail.description" required="true" rows="3" cols="20" fluid />
-                </div>
-                <div>
+                <div class="col-span-8">
+                    <div class="flex flex-col gap-6">
+                        <div>
+                            <label for="name" class="block font-bold mb-3">Tên diễn viên</label>
+                            <InputText id="name" v-model.trim="actorDetail.actorName" required="true" autofocus :invalid="submitted && !actorDetail.actorName" fluid />
+                            <small v-if="submitted && !actorDetail.actorName" class="text-red-500">actorName is required.</small>
+                        </div>
+                        <div>
+                            <label for="description" class="block font-bold mb-3">Ngày sinh</label>
+                            <DatePicker v-model="actorDetail.birthDay" rows="3" cols="20" fluid />
+                        </div>
+                        <div>
+                            <label for="description" class="block font-bold mb-3">Nơi sinh</label>
+                            <InputText v-model="actorDetail.placeOfBirth" required="true" rows="3" cols="20" fluid />
+                        </div>
+                        <div>
+                            <label for="description" class="block font-bold mb-3">Mô tả</label>
+                            <Textarea v-model="actorDetail.actorDescription" required="true" rows="3" cols="20" fluid />
+                        </div>
+                        <!-- <div>
                     <label for="inventoryStatus" class="block font-bold mb-3">Trạng thái</label>
                     <Select id="inventoryStatus" :options="statuses" optionLabel="label" placeholder="Chọn trạng thái" fluid></Select>
+                </div> -->
+                    </div>
                 </div>
             </div>
+
             <template #footer>
                 <Button label="Hủy" icon="pi pi-times" text @click="hideDialog" />
                 <Button label="Xác nhận" icon="pi pi-check" @click="saveActor()" />

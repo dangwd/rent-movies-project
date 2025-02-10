@@ -1,5 +1,6 @@
 <script setup>
 import API from '@/api/api-main';
+import VideoPlayComp from '@/components/VideoPlayComp.vue';
 import { useToast } from 'primevue/usetoast';
 import { onMounted, ref } from 'vue';
 
@@ -83,7 +84,7 @@ function deleteSelectedProducts() {
                     <Button label="Thêm mới" icon="pi pi-plus" @click="openNew" />
                 </template>
             </Toolbar>
-
+            <VideoPlayComp :url="'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8'" />
             <DataTable ref="dt" v-model:selection="selectedProducts" showGridlines :value="Actors" dataKey="id" :paginator="true" :rows="10" :rowsPerPageOptions="[5, 10, 25]">
                 <template #header>
                     <div class="flex flex-wrap gap-2 items-center justify-between">
