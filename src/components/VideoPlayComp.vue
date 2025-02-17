@@ -16,7 +16,7 @@ onMounted(() => {
         sources: [
             {
                 src: props.url,
-                type: 'application/x-mpegURL'
+                type: 'video/mp4'
             }
         ]
     });
@@ -31,7 +31,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
-        <video ref="videoElement" class="video-js vjs-theme-forest"></video>
+        <video crossorigin="anonymous" ref="videoElement" class="video-js vjs-theme-forest"></video>
     </div>
 </template>
 

@@ -4,7 +4,7 @@ import { useToast } from 'primevue/usetoast';
 import { onMounted, ref } from 'vue';
 
 onMounted(() => {
-    fetchAllActors();
+    fetchAllMovies();
 });
 
 const formData = new FormData();
@@ -28,7 +28,7 @@ const statuses = ref([
 ]);
 const submitted = ref(false);
 
-const fetchAllActors = async () => {
+const fetchAllMovies = async () => {
     try {
         const res = await API.get(`movies?skip=0&limit=20`);
         Movies.value = res.data.metadata;
@@ -57,6 +57,8 @@ const saveMovies = async () => {
         console.log(res);
     } catch (error) {
         console.log(error);
+    } finally {
+        fetchAllMovies();
     }
 };
 
@@ -67,9 +69,10 @@ const deleteActorDlg = (data) => {
 
 const confirmDeleteSelected = async () => {
     try {
-        const res = await API.delete(`movies/${movieDetail.value._id}`);
+        const res = await API.delete(`movie/${movieDetail.value._id}`);
         if (res.data) {
-            deleteProductDialog.value = true;
+            fetchAllMovies();
+            deleteProductDialog.value = false;
         }
     } catch (error) {
         console.log(error);
@@ -103,7 +106,6 @@ const UploadFileLocal = async (event, index) => {
                     <Button label="Thêm mới" icon="pi pi-plus" @click="openNew" />
                 </template>
             </Toolbar>
-
             <DataTable ref="dt" v-model:selection="selectedProducts" showGridlines :value="Movies" dataKey="id" :paginator="true" :rows="10" :rowsPerPageOptions="[5, 10, 25]">
                 <template #header>
                     <div class="flex flex-wrap gap-2 items-center justify-between">
@@ -141,6 +143,7 @@ const UploadFileLocal = async (event, index) => {
 
         <Dialog v-model:visible="movieDialog" :style="{ width: '450px' }" header="Phim" :modal="true">
             <div class="flex flex-col gap-6">
+                <VideoPlayComp :url="'http://localhost:3000/uploads/1739783592927-10s.mp4'"></VideoPlayComp>
                 <div>
                     <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />
                 </div>
