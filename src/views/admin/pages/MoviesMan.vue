@@ -71,7 +71,9 @@ const confirmDeleteSelected = async () => {
         if (res.data) {
             deleteProductDialog.value = true;
         }
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 function deleteSelectedProducts() {

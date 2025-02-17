@@ -11,6 +11,7 @@ const store = useAuthStore();
 const router = useRouter();
 const username = ref('');
 const password = ref('');
+const fullname = ref('');
 const checked = ref(false);
 const loginForm = ref(true);
 const handleLogin = async () => {
@@ -28,11 +29,12 @@ const handleLogin = async () => {
 
 const handleRegister = async () => {
     const data = {
-        username: username.value,
+        name: fullname.value,
+        email: username.value,
         password: password.value
     };
     const res = await store.register(data);
-    if (res.status === 1) {
+    if (res.data.status === 200) {
         proxy.$notify('S', 'Tạo tài khoản thành công!', toast);
     } else {
         console.log(res);
@@ -74,9 +76,10 @@ const handleRegister = async () => {
                     </div>
 
                     <div v-else>
+                        <label for="email1" class="block text-surface-900 dark:text-surface-0 text-base font-medium mb-2">Tên người dùng</label>
+                        <InputText id="email1" type="text" placeholder="Tên người dùng" class="w-full md:w-[30rem] mb-8" v-model="fullname" />
                         <label for="email1" class="block text-surface-900 dark:text-surface-0 text-base font-medium mb-2">Email</label>
-                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[30rem] mb-8" v-model="username" />
-
+                        <InputText id="email1" type="text" placeholder="Địa chỉ email" class="w-full md:w-[30rem] mb-8" v-model="username" />
                         <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-base mb-2">Mật khẩu</label>
                         <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true" class="mb-4" fluid :feedback="false"></Password>
 

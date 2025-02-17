@@ -1,7 +1,7 @@
 <script setup>
 import API from '@/api/api-main';
+import { format } from 'date-fns';
 import { useToast } from 'primevue/usetoast';
-
 import { getCurrentInstance, onMounted, ref } from 'vue';
 const { proxy } = getCurrentInstance();
 const toast = useToast();
@@ -18,14 +18,18 @@ const deleteProductDialog = ref(false);
 const deleteProductsDialog = ref(false);
 const actorDetail = ref({});
 const selectedProducts = ref();
-const statuses = ref([
+const statusOpts = ref([
     {
-        label: 'Hoạt động',
-        value: true
+        name: 'Hoạt động',
+        value: 'active'
     },
     {
-        label: 'Dừng Hoạt động',
-        value: false
+        name: 'Dừng Hoạt động',
+        value: 'inactive'
+    },
+    {
+        name: 'Đã xóa',
+        value: 'deleted'
     }
 ]);
 const submitted = ref(false);
@@ -40,10 +44,10 @@ const fetchAllActors = async () => {
 };
 
 const openNew = async (data) => {
-    if (data._id) {
+    actorDetail.value = {};
+    if (data) {
         try {
             const res = await API.get(`actor/${data._id}`);
-            console.log(res.data);
             actorDetail.value = res.data.metadata;
         } catch (error) {
             console.log(error);
@@ -94,7 +98,7 @@ const confirmDeleteSelected = async () => {
         if (res.data) {
             fetchAllActors();
             deleteProductDialog.value = false;
-            proxy.$notify();
+            proxy.$notify(`S`, 'Thành công!', toast);
         }
     } catch (error) {}
 };
@@ -122,7 +126,7 @@ function deleteSelectedProducts() {
                     <strong class="text-lg">Diễn viên</strong>
                 </template>
                 <template #end>
-                    <Button label="Thêm mới" icon="pi pi-plus" @click="openNew" />
+                    <Button label="Thêm mới" icon="pi pi-plus" @click="openNew()" />
                 </template>
             </Toolbar>
 
@@ -137,6 +141,9 @@ function deleteSelectedProducts() {
                             <InputText class="w-[300px]" placeholder="Tìm kiếm diễn viên theo tên..." />
                         </IconField>
                     </div>
+                </template>
+                <template #empty>
+                    <div class="text-center p-2">Không có bản ghi nào</div>
                 </template>
                 <Column header="STT">
                     <template #body="sp">
@@ -154,10 +161,14 @@ function deleteSelectedProducts() {
                 <Column field="placeOfBirth" header="Nơi sinh"></Column>
                 <Column field="birthDay" header="Ngày sinh">
                     <template #body="sp">
-                        {{ sp.data.birthDay }}
+                        {{ format(sp.data.birthDay, 'dd/MM/yyyy') }}
                     </template>
                 </Column>
-                <Column field="status" header="Trạng thái"></Column>
+                <Column field="status" header="Trạng thái">
+                    <template #body="sp">
+                        {{ sp.data.status === 'active' ? `Hoạt động` : `Dừng hoạt động` }}
+                    </template>
+                </Column>
                 <Column field="" header="Thao tác">
                     <template #body="sp">
                         <div class="flex gap-2">
@@ -174,7 +185,7 @@ function deleteSelectedProducts() {
                 <div class="col-span-4">
                     <div class="flex flex-col items-center gap-2">
                         <div class="rounded-full">
-                            <Image crossorigin="anonymous" :src="actorDetail?.images[0]" alt="Image" width="200" />
+                            <Image crossorigin="anonymous" :src="actorDetail?.images ? actorDetail?.images[0] : `https://placehold.co/200x200`" alt="Image" width="200" />
                         </div>
                         <div>
                             <Button label="Chọn ảnh" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />
@@ -182,7 +193,7 @@ function deleteSelectedProducts() {
                         <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
                     </div>
                 </div>
-                <div class="col-span-8">
+                <div class="col-span-8 grid grid-cols-2 gap-2">
                     <div class="flex flex-col gap-6">
                         <div>
                             <label for="name" class="block font-bold mb-3">Tên diễn viên</label>
@@ -197,14 +208,20 @@ function deleteSelectedProducts() {
                             <label for="description" class="block font-bold mb-3">Nơi sinh</label>
                             <InputText v-model="actorDetail.placeOfBirth" required="true" rows="3" cols="20" fluid />
                         </div>
+                    </div>
+                    <div class="flex flex-col gap-6">
+                        <div>
+                            <label for="name" class="block font-bold mb-3">Loại</label>
+                            <InputText id="name" v-model.trim="actorDetail.type" required="true" autofocus :invalid="submitted && !actorDetail.actorName" fluid />
+                        </div>
+                        <div>
+                            <label for="description" class="block font-bold mb-3">Trạng thái</label>
+                            <Dropdown :options="statusOpts" optionLabel="name" optionValue="value" v-model="actorDetail.status" class="w-full"></Dropdown>
+                        </div>
                         <div>
                             <label for="description" class="block font-bold mb-3">Mô tả</label>
                             <Textarea v-model="actorDetail.actorDescription" required="true" rows="3" cols="20" fluid />
                         </div>
-                        <!-- <div>
-                    <label for="inventoryStatus" class="block font-bold mb-3">Trạng thái</label>
-                    <Select id="inventoryStatus" :options="statuses" optionLabel="label" placeholder="Chọn trạng thái" fluid></Select>
-                </div> -->
                     </div>
                 </div>
             </div>
