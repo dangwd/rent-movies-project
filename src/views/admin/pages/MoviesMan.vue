@@ -37,11 +37,17 @@ const fetchAllMovies = async () => {
     }
 };
 
-function openNew() {
+const openNew = async (data = '') => {
     movieDetail.value = {};
+    try {
+        const res = await API.get(`movie/${data._id}`);
+        movieDetail.value = res.data.metadata;
+    } catch (error) {
+        console.log(error);
+    }
     submitted.value = false;
     movieDialog.value = true;
-}
+};
 
 function hideDialog() {
     movieDialog.value = false;
@@ -133,7 +139,7 @@ const UploadFileLocal = async (event, index) => {
                 <Column field="" header="Thao tác">
                     <template #body="sp">
                         <div class="flex gap-2">
-                            <Button @click="openNew" text icon="pi pi-eye"></Button>
+                            <Button @click="openNew(sp.data)" text icon="pi pi-eye"></Button>
                             <Button @click="deleteActorDlg(sp.data)" text icon="pi pi-trash" severity="danger"></Button>
                         </div>
                     </template>
@@ -141,21 +147,25 @@ const UploadFileLocal = async (event, index) => {
             </DataTable>
         </div>
 
-        <Dialog v-model:visible="movieDialog" :style="{ width: '450px' }" header="Phim" :modal="true">
-            <div class="flex flex-col gap-6">
-                <VideoPlayComp :url="'http://localhost:3000/uploads/1739783592927-10s.mp4'"></VideoPlayComp>
-                <div>
+        <Dialog v-model:visible="movieDialog" :style="{ width: '60%' }" header="Phim" :modal="true">
+            <div class="grid grid-cols-2 gap-6">
+                <div class="col-span-1 flex flex-col gap-2">
+                    <VideoPlayComp :url="'http://localhost:3000/uploads/1739783592927-10s.mp4'"></VideoPlayComp>
                     <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />
+                    <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
                 </div>
-                <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
-                <div>
-                    <label for="name" class="block font-bold mb-3">Tên phim</label>
-                    <InputText id="name" v-model.trim="movieDetail.movieName" required="true" autofocus :invalid="submitted && !movieDetail.movieName" fluid />
-                    <small v-if="submitted && !movieDetail.movieName" class="text-red-500">movieName is required.</small>
-                </div>
-                <div>
-                    <label for="movieDescription" class="block font-bold mb-3">Mô tả</label>
-                    <Textarea id="movieDescription" v-model="movieDetail.movieDescription" required="true" rows="3" cols="20" fluid />
+                <div class="col-span-1">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-2">
+                            <label for="name" class="block font-bold">Tên phim</label>
+                            <InputText id="name" v-model.trim="movieDetail.movieName" required="true" autofocus :invalid="submitted && !movieDetail.movieName" fluid />
+                            <small v-if="submitted && !movieDetail.movieName" class="text-red-500">movieName is required.</small>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="movieDescription" class="block font-bold">Mô tả</label>
+                            <Textarea id="movieDescription" v-model="movieDetail.movieDescription" required="true" rows="3" cols="20" fluid />
+                        </div>
+                    </div>
                 </div>
             </div>
 
