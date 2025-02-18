@@ -7,6 +7,11 @@ export default [
                 path: '/client',
                 name: 'home',
                 component: () => import('@/views/client/pages/HomePage.vue')
+            },
+            {
+                path: '/detail/:id',
+                name: 'detail',
+                component: () => import('@/views/client/pages/DetailMovie.vue')
             }
         ]
     }
