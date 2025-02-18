@@ -183,7 +183,11 @@ const UploadTrailer = async (event, index) => {
                     </template>
                 </Column>
                 <Column field="budget" header="Thời lượng"></Column>
-                <Column field="language" header="Ngôn ngữ"></Column>
+                <Column field="language" header="Ngôn ngữ">
+                    <template #body="sp">
+                        {{ sp.data.language.map((el) => el.name).join(', ') }}
+                    </template>
+                </Column>
                 <Column field="" header="Thao tác">
                     <template #body="sp">
                         <div class="flex gap-2">
