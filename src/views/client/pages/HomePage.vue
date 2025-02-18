@@ -1,4 +1,30 @@
-<script setup></script>
+<script setup>
+import API from '@/api/api-main';
+import { onMounted, ref } from 'vue';
+
+onMounted(() => {
+    fetchAllMovie();
+    fetchAllActors();
+});
+const Movies = ref([]);
+const Actors = ref([]);
+const fetchAllMovie = async () => {
+    try {
+        const res = await API.get(`movies`);
+        Movies.value = res.data.metadata;
+    } catch (error) {
+        console.log(error);
+    }
+};
+const fetchAllActors = async () => {
+    try {
+        const res = await API.get(`actors`);
+        Actors.value = res.data.metadata;
+    } catch (error) {
+        console.log(error);
+    }
+};
+</script>
 <template>
     <header class="font-bold text-lg flex items-center gap-x-3 md:hidden mb-12">
         <span class="mr-6">
@@ -30,25 +56,18 @@
             <a href="#" class="hover:text-gray-700 dark:hover:text-white">Animes</a>
         </nav>
 
-        <div
-            class="flex flex-col justify-between mt-4 bg-black/10 bg-blend-multiply rounded-3xl h-80 overflow-hidden bg-cover bg-center px-7 pt-4 pb-6 text-white"
-            style="background-image: url('https://mazyar1128.github.io/tailwindcss-movie-dashboard/images/inception.jpg')"
-        >
+        <div class="flex flex-col justify-between mt-4 bg-black/10 bg-blend-multiply rounded-3xl h-80 overflow-hidden bg-cover bg-center px-7 pt-4 pb-6 text-white" :style="{ backgroundImage: `url(${Movies[0]?.images[0]})` }">
             <div class="flex -space-x-1 items-center">
-                <img class="rounded-full w-7 h-7 shadow-lg border border-white" src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsrj8csk" alt="" srcset="" />
-                <img class="rounded-full w-7 h-7 shadow-lg border border-white" src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsrj8cck" alt="" srcset="" />
-                <img class="rounded-full w-7 h-7 shadow-lg border border-white" src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsfj8cck" alt="" srcset="" />
-                <span class="pl-4 text-xs drop-shadow-lg">+8 friends are watching</span>
+
             </div>
 
             <div class="bg-gradient-to-r from-black/30 to-transparent -mx-7 -mb-6 px-7 pb-6 pt-2">
-                <span class="uppercase text-3xl font-semibold drop-shadow-lg">Inception</span>
+                <span class="uppercase text-3xl font-semibold drop-shadow-lg">{{ Movies[0]?.movieName }}</span>
                 <div class="text-xs text-gray-200 mt-2">
-                    <a href="#" class="">Action</a>, <a href="#" class="">Adventure</a>,
-                    <a href="#" class="">Sci-Fi</a>
+                    <a href="">{{ Movies[0]?.genre }}</a>
                 </div>
                 <div class="mt-4 flex space-x-3 items-center">
-                    <a href="#" class="px-5 py-2.5 bg-primary hover:bg-red-700 rounded-lg text-xs inline-block">Watch</a>
+                    <router-link to="/watch/:id" class="px-5 py-2.5 bg-primary hover:bg-primary-700 rounded-lg text-xs inline-block">Watch</router-link>
                     <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg hover:bg-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -73,8 +92,8 @@
         </div>
 
         <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-5">
-            <div class="relative rounded-xl overflow-hidden">
-                <img src="https://www.jolie.de/sites/default/files/styles/image_gallery360w/public/2020-02/leonardo-dicaprio-oscars.jpg?h=64dbc2fc&itok=EH0B3oo4" class="object-cover h-full w-full -z-10" alt="" />
+            <div v-for="(item, index) in Actors" :key="index" class="relative rounded-xl overflow-hidden">
+                <img :src="item.images ? item.images[0] : ``" class="object-cover h-full w-full -z-10" alt="" />
                 <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
                     <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-primary/80">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -83,53 +102,8 @@
                     </a>
 
                     <div class="self-center flex flex-col items-center space-y-2">
-                        <span class="capitalize text-white font-medium drop-shadow-md">Leonardo DiCaprio</span>
+                        <span class="capitalize text-white font-medium drop-shadow-md">{{ item.actorName }}</span>
                         <span class="text-gray-100 text-xs">+12 Movies</span>
-                    </div>
-                </div>
-            </div>
-            <div class="relative rounded-xl overflow-hidden">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/WP_-_random_-5_%2814094372762%29.jpg/319px-WP_-_random_-5_%2814094372762%29.jpg" class="object-cover w-full h-full -z-10" alt="" />
-                <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
-                    <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-primary/80">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-
-                    <div class="self-center flex flex-col items-center space-y-2">
-                        <span class="capitalize text-white font-medium drop-shadow-md">Joseph Gordon-Levitt</span>
-                        <span class="text-gray-300 text-xs">+24 Movies</span>
-                    </div>
-                </div>
-            </div>
-            <div class="relative rounded-xl overflow-hidden">
-                <img src="https://img.zeit.de/kultur/film/2020-12/elliot-page-tranmann/wide__450x253__mobile__scale_1" class="object-cover h-full w-full -z-10" alt="" />
-                <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
-                    <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-primary/80">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-
-                    <div class="self-center flex flex-col items-center space-y-2">
-                        <span class="capitalize text-white font-medium drop-shadow-md">Elliot Page</span>
-                        <span class="text-gray-300 text-xs">+10 Movies</span>
-                    </div>
-                </div>
-            </div>
-            <div class="relative rounded-xl overflow-hidden">
-                <img src="https://de.web.img3.acsta.net/c_310_420/pictures/16/01/19/11/06/274206.jpg" class="object-cover h-full w-full -z-10" alt="" />
-                <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
-                    <a href="#" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-primary/80">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-
-                    <div class="self-center flex flex-col items-center space-y-2">
-                        <span class="capitalize text-white font-medium drop-shadow-md">Tom Hardy</span>
-                        <span class="text-gray-300 text-xs">+27 Movies</span>
                     </div>
                 </div>
             </div>
