@@ -73,10 +73,12 @@ const saveMovies = async () => {
     submitted.value = true;
     let data = { ...movieDetail.value };
     formData.append('items', JSON.stringify(data));
+    let url = data._id ? API.updatev2(`movie/${data._id}`, formData) : API.create(`movie`, formData);
     try {
-        const res = await API.create(`movie`, formData);
+        const res = await url;
         if (res) {
             proxy.$notify('S', 'Thành công!', toast);
+            movieDialog.value = false;
         }
     } catch (error) {
         console.log(error);
@@ -200,9 +202,53 @@ const UploadTrailer = async (event, index) => {
         </div>
 
         <Dialog v-model:visible="movieDialog" :style="{ width: '60%' }" header="Phim" :modal="true">
-            <div class="grid grid-cols-12 gap-6">
-                <div class="col-span-2 flex flex-col gap-3">
-                    <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-3">
+                <div class="grid grid-cols-12 gap-6">
+                    <div class="col-span-6">
+                        <div class="flex flex-col gap-3">
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="block font-bold">Tên phim</label>
+                                <InputText id="name" v-model.trim="movieDetail.movieName" required="true" autofocus :invalid="submitted && !movieDetail.movieName" fluid />
+                                <small v-if="submitted && !movieDetail.movieName" class="text-red-500">movieName is required.</small>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="block font-bold"> Ngày ra mắt</label>
+                                <Calendar v-model="movieDetail.releaseDate"></Calendar>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="block font-bold"> Ngân sách</label>
+                                <InputText v-model="movieDetail.budget"></InputText>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="block font-bold"> Doanh thu</label>
+                                <InputText v-model="movieDetail.revenue"></InputText>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-6">
+                        <div class="flex flex-col gap-3">
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="block font-bold">Ngôn ngữ</label>
+                                <MultiSelect v-model="movieDetail.language" :options="Languages" optionLabel="name" optionValue="_id" filter placeholder="Chọn ngôn ngữ" :maxSelectedLabels="3" class="w-full" />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="block font-bold">Thể loại</label>
+                                <MultiSelect v-model="movieDetail.genre" :options="GenreOpts" optionLabel="genreName" optionValue="_id" filter placeholder="Chọn thể loại" :maxSelectedLabels="3" class="w-full" />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="block font-bold">Diễn viên</label>
+                                <MultiSelect v-model="movieDetail.actors" :options="Actors" optionLabel="actorName" optionValue="_id" filter placeholder="Chọn diễn viên" :maxSelectedLabels="3" class="w-full" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="movieDescription" class="block font-bold">Mô tả</label>
+                                <Textarea id="movieDescription" v-model="movieDetail.movieDescription" required="true" rows="3" cols="20" fluid />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-12 gap-3">
+                    <div class="col-span-6 flex flex-col gap-2">
                         <label class="block font-bold">Phim</label>
                         <div v-if="movieDetail?.videos">
                             <VideoPlayComp :url="movieDetail?.videos ? movieDetail?.videos[0] : ''"></VideoPlayComp>
@@ -210,13 +256,7 @@ const UploadTrailer = async (event, index) => {
                         <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />
                         <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
                     </div>
-                    <div class="flex flex-col gap-2">
-                        <label class="block font-bold">Thumbnail</label>
-                        <img :src="movieDetail.images ? movieDetail.images[0] : ''" alt="" />
-                        <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile1(index)" />
-                        <input type="file" class="hidden click-thumbnail" @change="UploadThumbnail($event, 0)" />
-                    </div>
-                    <div class="flex flex-col gap-2">
+                    <div class="col-span-6 flex flex-col gap-2">
                         <label class="block font-bold">Trailer</label>
                         <div v-if="movieDetail?.trailer">
                             <VideoPlayComp :url="movieDetail?.trailer ? movieDetail?.trailer[0] : ''"></VideoPlayComp>
@@ -225,50 +265,11 @@ const UploadTrailer = async (event, index) => {
                         <input type="file" class="hidden click-trailer" @change="UploadTrailer($event, 0)" />
                     </div>
                 </div>
-                <div class="col-span-5">
-                    <div class="flex flex-col gap-3">
-                        <div class="flex flex-col gap-2">
-                            <label for="name" class="block font-bold">Tên phim</label>
-                            <InputText id="name" v-model.trim="movieDetail.movieName" required="true" autofocus :invalid="submitted && !movieDetail.movieName" fluid />
-                            <small v-if="submitted && !movieDetail.movieName" class="text-red-500">movieName is required.</small>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="name" class="block font-bold"> Ngày ra mắt</label>
-                            <Calendar v-model="movieDetail.releaseDate"></Calendar>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="name" class="block font-bold"> Ngân sách</label>
-                            <InputText v-model="movieDetail.budget"></InputText>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="name" class="block font-bold"> Doanh thu</label>
-                            <InputText v-model="movieDetail.revenue"></InputText>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-5">
-                    <div class="flex flex-col gap-3">
-                        <div class="flex flex-col gap-2">
-                            <label for="name" class="block font-bold">Ngôn ngữ</label>
-                            <MultiSelect v-model="movieDetail.language" :options="Languages" optionLabel="name" optionValue="_id" filter placeholder="Chọn ngôn ngữ" :maxSelectedLabels="3" class="w-full" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="name" class="block font-bold">Thể loại</label>
-                            <MultiSelect v-model="movieDetail.genre" :options="GenreOpts" optionLabel="genreName" optionValue="_id" filter placeholder="Chọn thể loại" :maxSelectedLabels="3" class="w-full" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="name" class="block font-bold">Diễn viên</label>
-                            <MultiSelect v-model="movieDetail.actors" :options="Actors" optionLabel="actorName" optionValue="_id" filter placeholder="Chọn diễn viên" :maxSelectedLabels="3" class="w-full" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="name" class="block font-bold">Trạng thái</label>
-                            <InputText id="name" v-model.trim="movieDetail.status" required="true" autofocus fluid />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="movieDescription" class="block font-bold">Mô tả</label>
-                            <Textarea id="movieDescription" v-model="movieDetail.movieDescription" required="true" rows="3" cols="20" fluid />
-                        </div>
-                    </div>
+                <div class="flex flex-col gap-2">
+                    <label class="block font-bold">Thumbnail</label>
+                    <img :src="movieDetail.images ? movieDetail.images[0] : ''" alt="" />
+                    <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile1(index)" />
+                    <input type="file" class="hidden click-thumbnail" @change="UploadThumbnail($event, 0)" />
                 </div>
             </div>
 
