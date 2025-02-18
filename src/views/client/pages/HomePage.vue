@@ -57,14 +57,12 @@ const fetchAllActors = async () => {
         </nav>
 
         <div class="flex flex-col justify-between mt-4 bg-black/10 bg-blend-multiply rounded-3xl h-80 overflow-hidden bg-cover bg-center px-7 pt-4 pb-6 text-white" :style="{ backgroundImage: `url(${Movies[0]?.images[0]})` }">
-            <div class="flex -space-x-1 items-center">
-
-            </div>
+            <div class="flex -space-x-1 items-center"></div>
 
             <div class="bg-gradient-to-r from-black/30 to-transparent -mx-7 -mb-6 px-7 pb-6 pt-2">
                 <span class="uppercase text-3xl font-semibold drop-shadow-lg">{{ Movies[0]?.movieName }}</span>
                 <div class="text-xs text-gray-200 mt-2">
-                    <a href="">{{ Movies[0]?.genre }}</a>
+                    <a href="">{{ Movies[0]?.genre.map((el) => el.genreName).join(', ') }}</a>
                 </div>
                 <div class="mt-4 flex space-x-3 items-center">
                     <router-link to="/watch/:id" class="px-5 py-2.5 bg-primary hover:bg-primary-700 rounded-lg text-xs inline-block">Watch</router-link>
@@ -79,18 +77,6 @@ const fetchAllActors = async () => {
     </section>
 
     <section class="mt-9">
-        <div class="flex items-center justify-between">
-            <span class="font-semibold text-gray-700 text-base dark:text-white">Top Stars</span>
-            <div class="flex items-center space-x-2 fill-gray-500">
-                <svg class="h-7 w-7 rounded-full border p-1 hover:border-primary hover:fill-primary dark:fill-white dark:hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M13.293 6.293L7.58 12l5.7 5.7 1.41-1.42 -4.3-4.3 4.29-4.293Z"></path>
-                </svg>
-                <svg class="h-7 w-7 rounded-full border p-1 hover:border-primary hover:fill-primary dark:fill-white dark:hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.7 17.707l5.7-5.71 -5.71-5.707L9.27 7.7l4.29 4.293 -4.3 4.29Z"></path>
-                </svg>
-            </div>
-        </div>
-
         <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-5">
             <div v-for="(item, index) in Actors" :key="index" class="relative rounded-xl overflow-hidden">
                 <img :src="item.images ? item.images[0] : ``" class="object-cover h-full w-full -z-10" alt="" />
@@ -111,18 +97,6 @@ const fetchAllActors = async () => {
     </section>
 
     <section class="mt-9">
-        <div class="flex items-center justify-between">
-            <span class="font-semibold text-gray-700 text-base dark:text-white">Similar Movies</span>
-            <div class="flex items-center space-x-2 fill-gray-500">
-                <svg class="h-7 w-7 rounded-full border p-1 hover:border-primary hover:fill-primary dark:fill-white dark:hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M13.293 6.293L7.58 12l5.7 5.7 1.41-1.42 -4.3-4.3 4.29-4.293Z"></path>
-                </svg>
-                <svg class="h-7 w-7 rounded-full border p-1 hover:border-primary hover:fill-primary dark:fill-white dark:hover:fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.7 17.707l5.7-5.71 -5.71-5.707L9.27 7.7l4.29 4.293 -4.3 4.29Z"></path>
-                </svg>
-            </div>
-        </div>
-
         <div class="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5">
             <div class="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600">
                 <img src="https://upload.wikimedia.org/wikipedia/en/1/14/Tenet_movie_poster.jpg" class="h-4/5 object-cover w-full" alt="" />
