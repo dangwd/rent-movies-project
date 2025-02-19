@@ -31,7 +31,7 @@ const fetchAllActors = async () => {
     <div class="container mx-auto py-10">
         <span class="text-xl uppercase font-bold">Phim đề cử</span>
 
-        <MovieLayout :data="12"></MovieLayout>
+        <MovieLayout :data="Movies"></MovieLayout>
     </div>
 </template>
 <style scoped></style>

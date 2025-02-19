@@ -9,7 +9,7 @@
                     sức mạnh thể chất và tinh thần để giữ bí mật trong hẻm núi trước khi quá muộn.
                 </p>
                 <div>
-                    <button class="border-2 hover:text-white duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-underline-animation left">Xem ngay</button>
+                    <button class="border-2 hover:text-white duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">Xem ngay</button>
                 </div>
             </div>
         </div>

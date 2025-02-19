@@ -1,9 +1,10 @@
 <template>
     <div :class="{ 'text-white': isScrolled }" class="h-20 sticky top-0 z-50 backdrop-blur backdrop-opacity-100 supports-backdrop-blur:bg-slate-900/500 border-b border-slate-500">
         <div class="container mx-auto flex items-center h-20 justify-between">
-            <div>
-                <img class="w-32" src="@/assets/img/logo.png" alt="" />
-            </div>
+            <router-link to="/client">
+                <img v-if="isScrolled" class="w-32" src=" @/assets/img/logo.png" alt="" />
+                <img v-else class="w-32" src=" @/assets/img/logo1.png" alt="" />
+            </router-link>
             <nav class="flex gap-2 font-semibold justify-between w-1/3 leading-3 uppercase">
                 <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5" to="#"> Tìm kiếm </router-link>
                 <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim hot</router-link>
@@ -19,6 +20,7 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue';
+const isScrolled = ref(false);
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
@@ -27,7 +29,6 @@ onMounted(() => {
 const handleScroll = () => {
     isScrolled.value = window.scrollY > 50;
 };
-const isScrolled = ref(true);
 </script>
 <style scoped>
 .hover-underline-animation {
