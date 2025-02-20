@@ -31,7 +31,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
-        <video crossorigin="anonymous" ref="videoElement" class="video-js vjs-theme-forest"></video>
+        <video crossorigin="anonymous" ref="videoElement" class="video-js vjs-theme-forest z-[99]"></video>
     </div>
 </template>
 

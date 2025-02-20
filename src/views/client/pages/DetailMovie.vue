@@ -2,8 +2,8 @@
     <div v-if="MovieDetail">
         <div class="h-[100vh] bg-cover bg-[url(@/assets/img/banner.jpg)] bg-center bg-fixed relative">
             <div class="absolute inset-0 bg-black/30 backdrop-blur-md"></div>
-            <div class="absolute top-40 h-[calc(100%-80px)] w-full overflow-y-auto">
-                <div class="grid grid-cols-12 gap-5 container mx-auto left-0 right-0 border-l-4 pl-7 border-white">
+            <div class="absolute top-40 h-[calc(100%-80px)] w-full">
+                <div class="grid grid-cols-12 gap-5 container mx-auto left-0 right-0">
                     <div class="col-span-3 flex flex-col gap-3 w-full">
                         <img class="w-80 h-auto object-cover" src="https://image.tmdb.org/t/p/w342/6xuPvqv8VAsXXACCwLjUgsIDe05.jpg" alt="" />
                         <button class="border-2 hover:text-white duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">Xem ngay</button>
@@ -68,6 +68,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="flex flex-col gap-2 text-white text-lg">
+                            <strong class="uppercase">Trailer</strong>
+                            <div class="flex gap-8">
+                                <iframe
+                                    width="1000"
+                                    height="563"
+                                    src="https://www.youtube.com/embed/1-JIOWwU0Ws"
+                                    title="The Gorge — ASMR with Miles Teller &amp; Anya Taylor-Joy | Apple TV+"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                ></iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,7 +93,6 @@
 import API from '@/api/api-main';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-
 onMounted(() => {
     fetchDetail();
 });

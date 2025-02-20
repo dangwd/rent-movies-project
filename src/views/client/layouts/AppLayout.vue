@@ -6,7 +6,7 @@ import AppTopbar from '../../client/layouts/AppTopbar.vue'; /* PartiallyEnd: #36
     <Toast />
     <AppConfigurator></AppConfigurator>
     <AppTopbar></AppTopbar>
-    <body class="font-montserrat text-sm bg-white dark:bg-zinc-900">
+    <body class="font-montserrat text-sm bg-white dark:bg-zinc-900 z-0">
         <div class="min-h-screen 2xl:max-w-screen-2xl 2xl:mx-auto 2xl:border-x-2 2xl:border-gray-200 dark:2xl:border-zinc-700">
             <router-view></router-view>
         </div>
