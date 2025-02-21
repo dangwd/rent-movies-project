@@ -75,7 +75,7 @@ const confirmDeleteSelected = async () => {
         const res = await API.delete(`genre/${genreDetail.value._id}`);
         if (res) {
             proxy.$notify('S', 'Thành công!', toast);
-            deleteProductDialog.value = true;
+            deleteProductDialog.value = false;
         }
     } catch (error) {
         console.log(error);

@@ -12,6 +12,11 @@ export default [
                 path: '/detail/:id',
                 name: 'detail',
                 component: () => import('@/views/client/pages/DetailMovie.vue')
+            },
+            {
+                path: '/watch/:id',
+                name: 'watch',
+                component: () => import('@/views/client/pages/WatchMovie.vue')
             }
         ]
     }

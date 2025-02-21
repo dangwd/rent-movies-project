@@ -12,8 +12,11 @@
                 <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim bộ</router-link>
                 <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim mới</router-link>
             </nav>
-            <div>
+            <router-link v-if="!user" to="/auth/login">
                 <Button label="Đăng nhập"></Button>
+            </router-link>
+            <div v-else>
+                <Button text icon="pi pi-user" :label="user?.metadata?.user?.name || ''"></Button>
             </div>
         </div>
     </div>
@@ -21,7 +24,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 const isScrolled = ref(false);
-
+const user = JSON.parse(localStorage.getItem('user'));
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
 });

@@ -1,18 +1,14 @@
 import AppLayout from '@/layout/AppLayout.vue';
-
 export default [
     {
-        path: '/',
+        path: '',
         component: AppLayout,
         children: [
             {
-                path: '/',
+                path: '',
                 name: 'dashboard',
                 component: () => import('@/views/Dashboard.vue'),
-                meta: {
-                    requiresAuth: true,
-                    roles: 'A'
-                }
+                meta: { requiresAuth: true }
             },
             {
                 path: '/man/actors',
@@ -41,6 +37,11 @@ export default [
         path: '/auth/login',
         name: 'login',
         component: () => import('@/views/pages/auth/Login.vue')
+    },
+    {
+        path: '/auth/signup',
+        name: 'signup',
+        component: () => import('@/views/pages/auth/Signup.vue')
     },
     {
         path: '/auth/access',

@@ -68,7 +68,9 @@ function hideDialog() {
     movieDialog.value = false;
     submitted.value = false;
 }
-
+const formatPrice = (price) => {
+    return Intl.NumberFormat().format(price);
+};
 const saveMovies = async () => {
     submitted.value = true;
     let data = { ...movieDetail.value };
@@ -178,13 +180,16 @@ const UploadTrailer = async (event, index) => {
                 <Column field="movieName" header="Tên phim"></Column>
                 <Column field="movieDescription" header="Mô tả"></Column>
                 <Column field="rating" header="Rate"></Column>
-                <Column field="runTime" header="Thời lượng"></Column>
                 <Column field="releaseDate" header="Ngày ra mắt">
                     <template #body="sp">
                         {{ format(new Date(sp.data.releaseDate), 'dd/MM/yyyy') }}
                     </template>
                 </Column>
-                <Column field="budget" header="Thời lượng"></Column>
+                <Column field="budget" header="Ngân sách">
+                    <template #body="sp">
+                        {{ formatPrice(sp.data.budget) }}
+                    </template>
+                </Column>
                 <Column field="language" header="Ngôn ngữ">
                     <template #body="sp">
                         {{ sp.data.language.map((el) => el.name).join(', ') }}
