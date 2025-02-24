@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-3 justify-center items-center bg-slate-800 h-screen">
+    <div v-if="MovieDetail" class="flex flex-col gap-3 justify-center items-center bg-slate-800 h-screen">
         <!-- <VideoPlayComp :url="MovieDetail.videos ? MovieDetail.videos[0] : ``"></VideoPlayComp> -->
 
         <div>
