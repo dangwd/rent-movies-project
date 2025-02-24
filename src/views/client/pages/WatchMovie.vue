@@ -1,8 +1,10 @@
 <template>
-    <div class="flex justify-center bg-gray-500 h-screen">
+    <div class="flex flex-col gap-3 justify-center items-center bg-slate-800 h-screen">
         <!-- <VideoPlayComp :url="MovieDetail.videos ? MovieDetail.videos[0] : ``"></VideoPlayComp> -->
 
-        <video crossorigin="anonymous" :src="MovieDetail.videos ? MovieDetail.videos[0] : ``"></video>
+        <div>
+            <video crossorigin="anonymous" controls :src="MovieDetail.videos ? MovieDetail.videos[0] : ``"></video>
+        </div>
     </div>
 </template>
 <script setup>
