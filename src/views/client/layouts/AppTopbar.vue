@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'text-white': isScrolled }" class="h-20 sticky top-0 z-50 backdrop-blur backdrop-opacity-100 supports-backdrop-blur:bg-slate-900/500 border-b border-slate-500">
+    <div :class="{ 'text-white': isScrolled }" class="h-20 sticky top-0 z-[99999] backdrop-blur backdrop-opacity-100 supports-backdrop-blur:bg-slate-900/500 border-b border-slate-500">
         <div class="container mx-auto flex items-center h-20 justify-between">
             <router-link to="/client">
                 <img v-if="isScrolled" class="w-32" src=" @/assets/img/logo.png" alt="" />

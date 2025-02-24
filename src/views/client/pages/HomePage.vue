@@ -32,6 +32,15 @@ const fetchAllActors = async () => {
         <span class="text-xl uppercase font-bold">Phim đề cử</span>
 
         <MovieLayout :data="Movies"></MovieLayout>
+        <span class="text-xl uppercase font-bold">Phim lẻ mới cập nhật</span>
+
+        <MovieLayout :data="Movies"></MovieLayout>
+        <span class="text-xl uppercase font-bold">Phim bộ mới cập nhật</span>
+
+        <MovieLayout :data="Movies"></MovieLayout>
+        <span class="text-xl uppercase font-bold">Phim đề cử</span>
+
+        <MovieLayout :data="Movies"></MovieLayout>
     </div>
 </template>
 <style scoped></style>

@@ -1,13 +1,12 @@
 <template>
     <div v-if="MovieDetail">
-        <div class="h-[100vh] bg-cover bg-[url(@/assets/img/banner.jpg)] bg-center bg-fixed relative">
+        <div class="bg-cover h-screen bg-[url(@/assets/img/banner.jpg)] bg-center bg-fixed relative">
             <div class="absolute inset-0 bg-black/30 backdrop-blur-md"></div>
             <div class="absolute top-40 w-full">
                 <div class="grid grid-cols-12 gap-5 container mx-auto left-0 right-0">
                     <div class="col-span-3 flex flex-col gap-3 w-full">
                         <img class="w-80 h-auto object-cover" :src="MovieDetail.images ? MovieDetail.images[0] : ''" alt="" />
-
-                        <button class="border-2 hover:text-white duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">
+                        <button class="border-2 hover:text-gray-700 duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">
                             <router-link :to="`/watch/${MovieDetail._id}`">Xem ngay</router-link>
                         </button>
                     </div>
@@ -19,7 +18,6 @@
                                 <Badge :value="item.genreName"></Badge>
                             </div>
                         </div>
-
                         <div class="flex flex-col gap-2 text-white text-lg">
                             <div class="flex gap-2">
                                 <div class="uppercase">Đạo diễn:</div>
