@@ -32,6 +32,16 @@ const statusOpts = ref([
         value: 'deleted'
     }
 ]);
+const typeActOpts = ref([
+    {
+        label: 'Đạo diễn',
+        value: 'D'
+    },
+    {
+        label: 'Diễn viên',
+        value: 'A'
+    }
+]);
 const submitted = ref(false);
 
 const fetchAllActors = async () => {
@@ -153,7 +163,7 @@ function deleteSelectedProducts() {
                 <Column field="actorName" header="Tên diễn viên"></Column>
                 <Column field="images" header="Ảnh">
                     <template #body="sp">
-                        <Image crossorigin="anonymous" :src="sp.data.images[0]" alt="Image" width="50" />
+                        <Image crossorigin="anonymous" :src="sp.data.images[0] || `https://placehold.co/50x50`" alt="Image" width="50" />
                     </template>
                 </Column>
 
@@ -196,8 +206,8 @@ function deleteSelectedProducts() {
                 <div class="col-span-8 grid grid-cols-2 gap-2">
                     <div class="flex flex-col gap-6">
                         <div>
-                            <label for="name" class="block font-bold mb-3">Tên diễn viên</label>
-                            <InputText id="name" v-model.trim="actorDetail.actorName" required="true" autofocus :invalid="submitted && !actorDetail.actorName" fluid />
+                            <label for="name" class="block font-bold mb-3">Tên diễn viên / đạo diễn</label>
+                            <InputText id="name" v-model="actorDetail.actorName" required="true" autofocus :invalid="submitted && !actorDetail.actorName" fluid />
                             <small v-if="submitted && !actorDetail.actorName" class="text-red-500">actorName is required.</small>
                         </div>
                         <div>
@@ -212,7 +222,8 @@ function deleteSelectedProducts() {
                     <div class="flex flex-col gap-6">
                         <div>
                             <label for="name" class="block font-bold mb-3">Loại</label>
-                            <InputText id="name" v-model.trim="actorDetail.type" required="true" autofocus :invalid="submitted && !actorDetail.actorName" fluid />
+
+                            <Dropdown class="w-full" v-model="actorDetail.type" optionValue="value" optionLabel="label" :options="typeActOpts"></Dropdown>
                         </div>
                         <div>
                             <label for="description" class="block font-bold mb-3">Trạng thái</label>

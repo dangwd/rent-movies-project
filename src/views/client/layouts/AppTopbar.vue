@@ -1,8 +1,8 @@
 <template>
-    <div :class="{ 'text-white': isScrolled }" class="h-20 sticky top-0 z-[99999] backdrop-blur backdrop-opacity-100 supports-backdrop-blur:bg-slate-900/500 border-b border-slate-500">
+    <div :class="{ 'text-white': route.params.id }" class="h-20 sticky top-0 z-[99999] backdrop-blur backdrop-opacity-100 supports-backdrop-blur:bg-slate-900/500 border-b border-slate-500">
         <div class="container mx-auto flex items-center h-20 justify-between">
             <router-link to="/client">
-                <img v-if="isScrolled" class="w-32" src=" @/assets/img/logo.png" alt="" />
+                <img v-if="route.params.id" class="w-32" src=" @/assets/img/logo.png" alt="" />
                 <img v-else class="w-32" src=" @/assets/img/logo1.png" alt="" />
             </router-link>
             <nav class="flex gap-2 font-semibold justify-between w-1/3 leading-3 uppercase">
@@ -23,8 +23,10 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 const isScrolled = ref(false);
 const user = JSON.parse(localStorage.getItem('user'));
+const route = useRoute();
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
 });

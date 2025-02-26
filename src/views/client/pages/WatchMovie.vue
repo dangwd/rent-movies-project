@@ -1,9 +1,14 @@
 <template>
-    <div v-if="MovieDetail" class="flex flex-col gap-3 justify-center items-center bg-slate-800 h-screen">
-        <!-- <VideoPlayComp :url="MovieDetail.videos ? MovieDetail.videos[0] : ``"></VideoPlayComp> -->
+    <div class="bg-cover h-screen mt-[-70px] bg-center bg-fixed relative overflow-auto">
+        <div class="container mx-auto pt-40">
+            <div class="grid grid-cols-12 gap-2">
+                <div class="col-span-8 flex flex-col gap-5">
+                    <video crossorigin="anonymous" controls :src="MovieDetail.videos ? MovieDetail.videos[0] : ``"></video>
+                </div>
+                <div class="col-span-4 bg-slate-800 card w-full">Phim đề xuất</div>
+            </div>
 
-        <div>
-            <video crossorigin="anonymous" controls :src="MovieDetail.videos ? MovieDetail.videos[0] : ``"></video>
+            <label for="" class="text-white text-2xl">{{ MovieDetail.movieName }}</label>
         </div>
     </div>
 </template>

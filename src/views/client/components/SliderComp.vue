@@ -13,6 +13,34 @@
                 </div>
             </div>
         </div>
+        <div class="absolute container top-[95%] translate-y-[-5%] mx-auto left-0 right-0">
+            <div class="card bg-slate-50 flex gap-2 shadow-md shadow-slate-50 justify-between items-center rounded-xl">
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-base font-semibold">Loại phim: </label>
+                    <Dropdown></Dropdown>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-base font-semibold">Thể loại:</label>
+                    <Dropdown></Dropdown>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-base font-semibold">Quốc gia: </label>
+                    <Dropdown></Dropdown>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-base font-semibold">Năm: </label>
+                    <Dropdown></Dropdown>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-base font-semibold">Thời lượng: </label>
+                    <Dropdown></Dropdown>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-base font-semibold">Sắp xếp: </label>
+                    <Dropdown></Dropdown>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script setup></script>

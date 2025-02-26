@@ -1,7 +1,7 @@
 <template>
     <div v-if="MovieDetail">
-        <div class="bg-cover h-screen bg-[url(@/assets/img/banner.jpg)] bg-center bg-fixed relative">
-            <div class="absolute inset-0 bg-black/30 backdrop-blur-md"></div>
+        <div :style="{ backgroundImage: `url(${MovieDetail.trailer ? MovieDetail.trailer[0] : ''})` }" class="bg-cover h-screen mt-[-70px] bg-center bg-fixed relative overflow-auto">
+            <div class="fixed inset-0 bg-black/30 backdrop-blur-md top-0 bottom-0"></div>
             <div class="absolute top-40 w-full">
                 <div class="grid grid-cols-12 gap-5 container mx-auto left-0 right-0">
                     <div class="col-span-3 flex flex-col gap-3 w-full">
@@ -10,6 +10,7 @@
                             <router-link :to="`/watch/${MovieDetail._id}`">Xem ngay</router-link>
                         </button>
                     </div>
+
                     <div class="col-span-9 flex flex-col gap-4">
                         <h1 class="text-white text-7xl font-extrabold">{{ MovieDetail.movieName }}</h1>
                         <span class="text-white text-3xl">Hẻm núi (2025)</span>
@@ -21,7 +22,12 @@
                         <div class="flex flex-col gap-2 text-white text-lg">
                             <div class="flex gap-2">
                                 <div class="uppercase">Đạo diễn:</div>
-                                <strong>Nguyễn Minh Đăng</strong>
+                                <strong>{{
+                                    MovieDetail.actors
+                                        ?.filter((el) => el.type === 'D')
+                                        .map((el) => el.actorName)
+                                        .join(', ')
+                                }}</strong>
                             </div>
                             <div class="flex gap-2">
                                 <div class="uppercase">Kịch bản:</div>
@@ -42,7 +48,7 @@
                         <div class="flex flex-col gap-2 text-white text-lg">
                             <strong class="uppercase">Diễn viên</strong>
                             <div class="flex gap-8">
-                                <div v-for="(item, index) in MovieDetail.actors" :key="index" class="flex flex-col items-center gap-2">
+                                <div v-for="(item, index) in MovieDetail.actors?.filter((el) => el.type === 'A')" :key="index" class="flex flex-col items-center gap-2">
                                     <img class="rounded-full w-32 h-32 object-cover" :src="item.images ? item.images[0] : ``" alt="" />
                                     <label for="">{{ item.actorName }}</label>
                                 </div>
@@ -52,10 +58,30 @@
                             <strong class="uppercase">Trailer</strong>
                             <div class="flex gap-8">
                                 <iframe
-                                    width="1000"
-                                    height="563"
-                                    src="https://www.youtube.com/embed/1-JIOWwU0Ws"
-                                    title="The Gorge — ASMR with Miles Teller &amp; Anya Taylor-Joy | Apple TV+"
+                                    width="500"
+                                    height="263"
+                                    src="https://www.youtube.com/embed/gaLyIhSMSNk?si=ElxLOb3UJ0gbhInk"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                ></iframe>
+                                <iframe
+                                    width="500"
+                                    height="263"
+                                    src="https://www.youtube.com/embed/gaLyIhSMSNk?si=ElxLOb3UJ0gbhInk"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                ></iframe>
+                                <iframe
+                                    width="500"
+                                    height="263"
+                                    src="https://www.youtube.com/embed/gaLyIhSMSNk?si=ElxLOb3UJ0gbhInk"
+                                    title="YouTube video player"
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin"

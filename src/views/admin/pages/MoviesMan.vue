@@ -270,9 +270,9 @@ const UploadTrailer = async (event, index) => {
                         <input type="file" class="hidden click-trailer" @change="UploadTrailer($event, 0)" />
                     </div>
                 </div>
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col justify-center items-center gap-2">
                     <label class="block font-bold">Thumbnail</label>
-                    <img :src="movieDetail.images ? movieDetail.images[0] : ''" alt="" />
+                    <img class="w-96 h-auto object-contain" :src="movieDetail.images ? movieDetail.images[0] : ''" alt="" />
                     <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile1(index)" />
                     <input type="file" class="hidden click-thumbnail" @change="UploadThumbnail($event, 0)" />
                 </div>

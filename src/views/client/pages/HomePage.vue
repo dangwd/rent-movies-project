@@ -28,17 +28,17 @@ const fetchAllActors = async () => {
 </script>
 <template>
     <SliderComp></SliderComp>
-    <div class="container mx-auto py-10">
-        <span class="text-xl uppercase font-bold">Phim đề cử</span>
+    <div class="container mx-auto py-28">
+        <span class="text-xl text-white uppercase font-bold">Phim đề cử</span>
 
         <MovieLayout :data="Movies"></MovieLayout>
-        <span class="text-xl uppercase font-bold">Phim lẻ mới cập nhật</span>
+        <span class="text-xl text-white uppercase font-bold">Phim lẻ mới cập nhật</span>
 
         <MovieLayout :data="Movies"></MovieLayout>
-        <span class="text-xl uppercase font-bold">Phim bộ mới cập nhật</span>
+        <span class="text-xl text-white uppercase font-bold">Phim bộ mới cập nhật</span>
 
         <MovieLayout :data="Movies"></MovieLayout>
-        <span class="text-xl uppercase font-bold">Phim đề cử</span>
+        <span class="text-xl text-white uppercase font-bold">Phim đề cử</span>
 
         <MovieLayout :data="Movies"></MovieLayout>
     </div>
