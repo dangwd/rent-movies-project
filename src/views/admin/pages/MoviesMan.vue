@@ -178,7 +178,13 @@ const UploadTrailer = async (event, index) => {
                     </template>
                 </Column>
                 <Column field="movieName" header="Tên phim"></Column>
-                <Column field="movieDescription" header="Mô tả"></Column>
+                <Column field="movieDescription" style="max-width: 400px" header="Mô tả">
+                    <template #body="sp">
+                        <div class="line-clamp-3">
+                            {{ sp.data.movieDescription }}
+                        </div>
+                    </template>
+                </Column>
                 <Column field="rating" header="Rate"></Column>
                 <Column field="releaseDate" header="Ngày ra mắt">
                     <template #body="sp">
@@ -247,34 +253,42 @@ const UploadTrailer = async (event, index) => {
 
                             <div class="flex flex-col gap-2">
                                 <label for="movieDescription" class="block font-bold">Mô tả</label>
-                                <Textarea id="movieDescription" v-model="movieDetail.movieDescription" required="true" rows="3" cols="20" fluid />
+                                <Textarea id="movieDescription" autoResize v-model="movieDetail.movieDescription" required="true" rows="3" cols="20" fluid />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-12 gap-3">
-                    <div class="col-span-6 flex flex-col gap-2">
-                        <label class="block font-bold">Phim</label>
-                        <div v-if="movieDetail?.videos">
+                <div class="flex flex-col gap-3">
+                    <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
+                        <div>
+                            <label class="block font-bold">Thumbnail 1</label>
+                            <img class="w-52 h-72 object-contain" :src="movieDetail.images ? movieDetail.images[0] : ''" alt="" />
+                        </div>
+                        <div>
+                            <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile1(index)" />
+                            <input type="file" class="hidden click-thumbnail" @change="UploadThumbnail($event, 0)" />
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
+                        <div class="w-72" v-if="movieDetail?.videos">
+                            <label class="block font-bold">Phim</label>
                             <VideoPlayComp :url="movieDetail?.videos ? movieDetail?.videos[0] : ''"></VideoPlayComp>
                         </div>
-                        <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />
-                        <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
+                        <div>
+                            <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />
+                            <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
+                        </div>
                     </div>
-                    <div class="col-span-6 flex flex-col gap-2">
-                        <label class="block font-bold">Trailer</label>
-                        <div v-if="movieDetail?.trailer">
+                    <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
+                        <div class="w-72" v-if="movieDetail?.trailer">
+                            <label class="block font-bold">Thumbnail 2</label>
                             <VideoPlayComp :url="movieDetail?.trailer ? movieDetail?.trailer[0] : ''"></VideoPlayComp>
                         </div>
-                        <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile2(index)" />
-                        <input type="file" class="hidden click-trailer" @change="UploadTrailer($event, 0)" />
+                        <div>
+                            <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile2(index)" />
+                            <input type="file" class="hidden click-trailer" @change="UploadTrailer($event, 0)" />
+                        </div>
                     </div>
-                </div>
-                <div class="flex flex-col justify-center items-center gap-2">
-                    <label class="block font-bold">Thumbnail</label>
-                    <img class="w-96 h-auto object-contain" :src="movieDetail.images ? movieDetail.images[0] : ''" alt="" />
-                    <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile1(index)" />
-                    <input type="file" class="hidden click-thumbnail" @change="UploadThumbnail($event, 0)" />
                 </div>
             </div>
 

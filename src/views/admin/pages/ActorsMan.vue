@@ -1,5 +1,6 @@
 <script setup>
 import API from '@/api/api-main';
+import parseDateSafely from '@/service/parseDate';
 import { format } from 'date-fns';
 import { useToast } from 'primevue/usetoast';
 import { getCurrentInstance, onMounted, ref } from 'vue';
@@ -59,6 +60,7 @@ const openNew = async (data) => {
         try {
             const res = await API.get(`actor/${data._id}`);
             actorDetail.value = res.data.metadata;
+            actorDetail.value.birthDay = format(actorDetail.value.birthDay, 'dd/MM/yyyy');
         } catch (error) {
             console.log(error);
         }
@@ -74,7 +76,7 @@ function hideDialog() {
 
 const saveActor = async () => {
     submitted.value = true;
-
+    actorDetail.value.birthDay = actorDetail.value.birthDay ? parseDateSafely(actorDetail.value.birthDay) : null;
     let data = { ...actorDetail.value };
     if (data._id) {
         delete actorDetail.value.images;
@@ -167,7 +169,13 @@ function deleteSelectedProducts() {
                     </template>
                 </Column>
 
-                <Column field="actorDescription" header="Mô tả"></Column>
+                <Column field="actorDescription" style="max-width: 200px" header="Mô tả">
+                    <template #body="sp">
+                        <div class="line-clamp-2">
+                            {{ sp.data.actorDescription }}
+                        </div>
+                    </template>
+                </Column>
                 <Column field="placeOfBirth" header="Nơi sinh"></Column>
                 <Column field="birthDay" header="Ngày sinh">
                     <template #body="sp">
