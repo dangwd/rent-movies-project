@@ -14,26 +14,26 @@
             </div>
         </div>
         <div class="absolute container top-[95%] translate-y-[-5%] mx-auto left-0 right-0">
-            <div class="card bg-slate-50 flex gap-2 shadow-md shadow-slate-50 justify-between items-center rounded-xl">
+            <div class="card bg-slate-50 flex gap-2 shadow-md justify-between items-center rounded-xl">
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-base font-semibold">Loại phim: </label>
-                    <Dropdown></Dropdown>
+                    <Dropdown placeholder="Chọn loại phim" v-model="filters.type"></Dropdown>
                 </div>
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-base font-semibold">Thể loại:</label>
-                    <Dropdown></Dropdown>
+                    <Dropdown placeholder="Chọn thể loại" v-model="filters.genres" optionLabel="genreName" :options="typeOpts"></Dropdown>
                 </div>
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-base font-semibold">Quốc gia: </label>
-                    <Dropdown></Dropdown>
+                    <Dropdown placeholder="Chọn quốc gia" :options="[]"></Dropdown>
                 </div>
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-base font-semibold">Năm: </label>
-                    <Dropdown></Dropdown>
+                    <Dropdown placeholder="Chọn năm ra mắt"></Dropdown>
                 </div>
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-base font-semibold">Thời lượng: </label>
-                    <Dropdown></Dropdown>
+                    <Dropdown placeholder="Chọn thời lượng"></Dropdown>
                 </div>
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-base font-semibold">Sắp xếp: </label>
@@ -43,7 +43,27 @@
         </div>
     </div>
 </template>
-<script setup></script>
+<script setup>
+import API from '@/api/api-main';
+import { onMounted, reactive, ref } from 'vue';
+const typeOpts = ref([]);
+
+const filters = reactive({
+    type: '',
+    genres: '',
+    contries: ''
+});
+onMounted(() => {
+    fetchAllType();
+});
+
+const fetchAllType = async () => {
+    try {
+        const res = await API.get(`genres`);
+        typeOpts.value = res.data.metadata;
+    } catch (error) {}
+};
+</script>
 <style scoped>
 .hover-button-animation {
     position: relative;

@@ -10,7 +10,7 @@ const model = ref([
             { label: 'Trang chủ', icon: 'pi pi-fw pi-home', to: '/' },
             { label: 'Diễn viên', icon: 'pi pi-fw pi-user', to: '/man/actors' },
             { label: 'Phim', icon: 'pi pi-fw pi-video', to: '/man/movies' },
-            { label: 'Thể loại', icon: 'pi pi-fw pi-map', to: '/man/genre' }
+            { label: 'Thể loại', icon: 'pi pi-fw pi-map', to: '/man/genre' },
         ]
     },
 

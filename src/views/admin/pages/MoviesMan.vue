@@ -20,6 +20,7 @@ const Movies = ref();
 const movieDialog = ref(false);
 const deleteProductDialog = ref(false);
 const deleteProductsDialog = ref(false);
+const typeMovies = ref(true);
 const movieDetail = ref({});
 const selectedProducts = ref();
 const submitted = ref(false);
@@ -154,16 +155,19 @@ const UploadTrailer = async (event, index) => {
         <div class="card">
             <Toolbar class="mb-6">
                 <template #start>
-                    <strong class="text-lg">Danh sách phim</strong>
+                    <strong @click="typeMovies = true" :class="{ 'text-primary': typeMovies }" class="text-lg cursor-pointer">Danh sách phim lẻ</strong>
+                    <strong class="text-lg px-2">|</strong>
+                    <strong @click="typeMovies = false" :class="{ 'text-primary': !typeMovies }" class="text-lg cursor-pointer">Danh sách phim bộ</strong>
                 </template>
                 <template #end>
-                    <Button label="Thêm mới" icon="pi pi-plus" @click="openNew()" />
+                    <Button v-if="typeMovies" label="Thêm mới phim lẻ" icon="pi pi-plus" @click="openNew()" />
+                    <Button v-else label="Thêm mới phim bộ" icon="pi pi-plus" @click="openNewGroupMovies()" />
                 </template>
             </Toolbar>
             <DataTable ref="dt" v-model:selection="selectedProducts" showGridlines :value="Movies" dataKey="id" :paginator="true" :rows="10" :rowsPerPageOptions="[5, 10, 25]">
                 <template #header>
                     <div class="flex flex-wrap gap-2 items-center justify-between">
-                        <h4 class="m-0">Danh Sách Phim</h4>
+                        <h4 class="m-0">{{ typeMovies ? `Danh Sách Phim Lẻ` : `Danh Sách Phim Bộ` }}</h4>
                         <IconField>
                             <InputIcon>
                                 <i class="pi pi-search" />
@@ -262,7 +266,7 @@ const UploadTrailer = async (event, index) => {
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
                         <div>
                             <label class="block font-bold">Thumbnail 1</label>
-                            <img class="w-52 h-72 object-contain" :src="movieDetail.images ? movieDetail.images[0] : ''" alt="" />
+                            <img class="w-52 h-72 object-contain" :src="movieDetail.images ? movieDetail.images[0] : 'https://placehold.co/400x600'" alt="" />
                         </div>
                         <div>
                             <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile1(index)" />

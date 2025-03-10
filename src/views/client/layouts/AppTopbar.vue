@@ -19,10 +19,10 @@
                 <Button text icon="pi pi-user" :label="user?.metadata?.user?.name || ''"></Button>
             </div>
         </div>
-        <div :class="{ hidden: searchBar }" class="absolute duration-300 z-50 transition-all ease-in-out top-20 p-4 container left-1/2 -translate-x-1/2 bg-white border rounded-xl shadow-md flex flex-col gap-3">
+        <div :class="{ hidden: !searchBar }" class="absolute duration-300 z-50 transition-all ease-in-out top-20 p-4 container left-1/2 -translate-x-1/2 bg-white border rounded-xl shadow-md flex flex-col gap-3">
             <div class="flex gap-2 w-full">
-                <InputText :disabled="searchBar" placeholder="Hôm nay xem gì ?" class="grow"></InputText>
-                <Button :disabled="searchBar" label="Tìm kiếm"></Button>
+                <InputText :disabled="!searchBar" placeholder="Hôm nay xem gì ?" class="grow"></InputText>
+                <Button :disabled="!searchBar" label="Tìm kiếm"></Button>
             </div>
             <div class="flex flex-col gap-3">
                 <strong>Phim đề xuất</strong>
