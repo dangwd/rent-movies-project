@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-cover text-white h-screen mt-[-70px] bg-center bg-fixed relative overflow-auto">
-        <div class="container flex flex-col gap-3 mx-auto pt-40">
+    <div class="bg-cover text-white h-auto mt-[-70px] bg-center bg-fixed relative overflow-auto">
+        <div class="container flex flex-col gap-3 mx-auto py-40">
             <div class="grid grid-cols-12 gap-3">
                 <div class="col-span-8 flex flex-col gap-5">
                     <video class="rounded-xl" crossorigin="anonymous" controls :src="MovieDetail.videos ? MovieDetail.videos[0] : ``"></video>
@@ -70,8 +70,11 @@
 </template>
 <script setup>
 import API from '@/api/api-main';
-import { onMounted, ref } from 'vue';
+import { useToast } from 'primevue/usetoast';
+import { getCurrentInstance, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+const { proxy } = getCurrentInstance();
+const toast = useToast();
 onMounted(() => {
     fetchDetail();
     fetchMovieByType();
