@@ -17,6 +17,7 @@ const formData = new FormData();
 const toast = useToast();
 const dt = ref();
 const Movies = ref();
+const premium = ref(false);
 const movieDialog = ref(false);
 const deleteProductDialog = ref(false);
 const deleteProductsDialog = ref(false);
@@ -254,18 +255,25 @@ const UploadTrailer = async (event, index) => {
                                 <label for="name" class="block font-bold">Diễn viên</label>
                                 <MultiSelect v-model="movieDetail.actors" :options="Actors" optionLabel="actorName" optionValue="_id" filter placeholder="Chọn diễn viên" :maxSelectedLabels="3" class="w-full" />
                             </div>
-
                             <div class="flex flex-col gap-2">
                                 <label for="movieDescription" class="block font-bold">Mô tả</label>
                                 <Textarea id="movieDescription" autoResize v-model="movieDetail.movieDescription" required="true" rows="3" cols="20" fluid />
+                            </div>
+                            <div class="flex gap-2">
+                                <Checkbox v-model="premium" binary></Checkbox>
+                                <label for="movieDescription" class="block font-bold">Premium</label>
+                            </div>
+                            <div v-if="premium" class="flex flex-col gap-2">
+                                <label for="movieDescription" class="block font-bold">Giá tiền</label>
+                                <InputNumber v-model="movieDetail.price" :min="0"></InputNumber>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col gap-3">
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
-                        <div>
-                            <label class="block font-bold">Thumbnail 1</label>
+                        <label class="block font-bold">Thumbnail</label>
+                        <div v-if="movieDetail.images">
                             <img class="w-52 h-72 object-contain" :src="movieDetail.images ? movieDetail.images[0] : 'https://placehold.co/400x600'" alt="" />
                         </div>
                         <div>
@@ -274,8 +282,8 @@ const UploadTrailer = async (event, index) => {
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
+                        <label class="block font-bold">Phim</label>
                         <div class="w-72" v-if="movieDetail?.videos">
-                            <label class="block font-bold">Phim</label>
                             <VideoPlayComp :url="movieDetail?.videos ? movieDetail?.videos[0] : ''"></VideoPlayComp>
                         </div>
                         <div>
@@ -284,8 +292,8 @@ const UploadTrailer = async (event, index) => {
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
+                        <label class="block font-bold">Thumbnail 2</label>
                         <div class="w-72" v-if="movieDetail?.trailer">
-                            <label class="block font-bold">Thumbnail 2</label>
                             <VideoPlayComp :url="movieDetail?.trailer ? movieDetail?.trailer[0] : ''"></VideoPlayComp>
                         </div>
                         <div>
