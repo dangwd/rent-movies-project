@@ -1,6 +1,6 @@
 <template>
     <div v-if="user">
-        <Button @click="toggle" icon="pi pi-user" rounded :text="!isScrolled" :label="user.email"></Button>
+        <Button @click="toggle" icon="pi pi-user" rounded :text="!isScrolled" :label="`${user.email} - Số dư:${formatPrice(accountBalance)}đ`"></Button>
     </div>
     <div v-else>
         <Button @click="openLogin()" class="w-40" icon="pi pi-sign-in" rounded label="Đăng nhập"></Button>
@@ -67,6 +67,8 @@
     </Popover>
 </template>
 <script setup>
+import API from '@/api/api-main';
+import { formatPrice } from '@/helper/formatPrice';
 import { useAuthStore } from '@/store';
 import { useToast } from 'primevue/usetoast';
 import { getCurrentInstance, onMounted, ref } from 'vue';
@@ -81,6 +83,7 @@ const username = ref('');
 const password = ref('');
 const checked = ref(false);
 const user = store?.user?.metadata.user;
+const accountBalance = ref();
 const visible = ref(false);
 const loginForm = ref(true);
 const op = ref();
@@ -88,6 +91,7 @@ const openLogin = () => {
     visible.value = true;
 };
 onMounted(() => {
+    getMe();
     if (user?.role === 'A') {
         items.value.unshift({
             label: 'Trang quản trị',
@@ -104,6 +108,13 @@ const items = ref([
         icon: 'pi pi-user',
         command: () => {
             router.push(`/get-me`);
+        }
+    },
+    {
+        label: 'Nạp tiền tài khoản',
+        icon: 'pi pi-dollar',
+        command: () => {
+            router.push(`/add-price`);
         }
     },
     {
@@ -145,6 +156,13 @@ const handleRegister = async () => {
 };
 const toggle = (event) => {
     op.value.toggle(event);
+};
+const getMe = async () => {
+    try {
+        const res = await API.get(`get-me`);
+        accountBalance.value = res.data.metadata?.accountBalance;
+        console.log(res);
+    } catch (error) {}
 };
 </script>
 <style>

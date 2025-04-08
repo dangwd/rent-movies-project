@@ -1,12 +1,16 @@
 <template>
     <div v-if="MovieDetail">
-        <div :style="{ backgroundImage: `url(${MovieDetail.trailer ? MovieDetail.trailer[0] : ''})` }" class="bg-cover h-screen mt-[-70px] bg-center bg-fixed relative overflow-auto">
+        <div :style="{ backgroundImage: `url(${MovieDetail.trailer ? MovieDetail.trailer[0] : ''})` }" class="bg-cover h-[1500px] z-50 mt-[-70px] bg-center bg-fixed relative">
             <div class="fixed inset-0 bg-black/30 backdrop-blur-md top-0 bottom-0"></div>
-            <div class="absolute top-40 w-full">
+            <div class="absolute top-40 py-10 w-full">
                 <div class="grid grid-cols-12 gap-5 container mx-auto left-0 right-0">
                     <div class="col-span-3 flex flex-col gap-3 w-full">
                         <img class="w-80 h-auto object-cover" :src="MovieDetail.images ? MovieDetail.images[0] : ''" alt="" />
-                        <button class="border-2 hover:text-gray-700 duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">
+                        <button @click="openBuyDlg()" v-if="MovieDetail.price" class="border-2 hover:text-gray-700 duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">
+                            {{ formatPrice(MovieDetail.price) }}đ
+                            <!-- <router-link :to="`/watch/${MovieDetail._id}`"></router-link> -->
+                        </button>
+                        <button v-else class="border-2 hover:text-gray-700 duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">
                             <router-link :to="`/watch/${MovieDetail._id}`">Xem ngay</router-link>
                         </button>
                     </div>
@@ -93,22 +97,49 @@
                 </div>
             </div>
         </div>
+
+        <Dialog v-model:visible="buyModal" modal header="Xác nhận thanh toán" :style="{ width: '25rem' }">
+            <span>Xác nhận thanh toán {{ formatPrice(MovieDetail.price) }}đ ?</span>
+            <template #footer>
+                <div class="flex justify-end gap-2">
+                    <Button type="button" label="Hủy" severity="secondary" @click="buyModal = false"></Button>
+                    <Button type="button" label="Thanh toán" @click="confirmBuy"></Button>
+                </div>
+            </template>
+        </Dialog>
     </div>
 </template>
 <script setup>
 import API from '@/api/api-main';
-import { onMounted, ref } from 'vue';
+import { formatPrice } from '@/helper/formatPrice';
+import { useToast } from 'primevue/usetoast';
+import { getCurrentInstance, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+const { proxy } = getCurrentInstance();
+const toast = useToast();
 onMounted(() => {
     fetchDetail();
 });
 const route = useRoute();
-
+const buyModal = ref(false);
 const MovieDetail = ref({});
 const fetchDetail = async () => {
     try {
         const res = await API.get(`movie/${route.params.id}`);
         MovieDetail.value = res.data.metadata;
+    } catch (error) {
+        console.log(error);
+    }
+};
+const openBuyDlg = () => {
+    buyModal.value = true;
+};
+const confirmBuy = async () => {
+    try {
+        const res = await API.create(`movie/${route.params.id}/buy`);
+        if (res.data) {
+            proxy.$notify('S', 'Mua thành công!', toast);
+        }
     } catch (error) {
         console.log(error);
     }

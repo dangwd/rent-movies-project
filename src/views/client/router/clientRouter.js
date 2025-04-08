@@ -23,6 +23,11 @@ export default [
                 name: 'get-me',
                 component: () => import('@/views/client/pages/GetMe.vue')
             },
+            {
+                path: '/add-price',
+                name: 'add-price',
+                component: () => import('@/views/client/pages/AddPrice.vue')
+            }
         ]
     }
 ];

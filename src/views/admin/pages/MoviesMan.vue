@@ -10,6 +10,7 @@ onMounted(() => {
     fetchAllGenre();
     fetchAllMovies();
     fetchAllActors();
+    fetchDirectors();
 });
 const Languages = ref([]);
 const Actors = ref([]);
@@ -17,12 +18,14 @@ const formData = new FormData();
 const toast = useToast();
 const dt = ref();
 const Movies = ref();
-const premium = ref(false);
+const DirectorsOtps = ref([]);
 const movieDialog = ref(false);
 const deleteProductDialog = ref(false);
 const deleteProductsDialog = ref(false);
 const typeMovies = ref(true);
-const movieDetail = ref({});
+const movieDetail = ref({
+    price: 0
+});
 const selectedProducts = ref();
 const submitted = ref(false);
 const GenreOpts = ref([]);
@@ -149,6 +152,14 @@ const UploadTrailer = async (event, index) => {
     formData.append('trailer', file);
     document.querySelectorAll('.click-trailer')[index].value = '';
 };
+const fetchDirectors = async () => {
+    try {
+        const res = await API.get(`actors`);
+        DirectorsOtps.value = res.data.metadata.filter((el) => el.type == 'D');
+    } catch (error) {
+        console.log(error);
+    }
+};
 </script>
 
 <template>
@@ -239,6 +250,10 @@ const UploadTrailer = async (event, index) => {
                                 <label for="name" class="block font-bold"> Doanh thu</label>
                                 <InputText v-model="movieDetail.revenue"></InputText>
                             </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="block font-bold"> Đạo diễn</label>
+                                <Select v-model="movieDetail.director" :options="DirectorsOtps" :placeholder="movieDetail?.director?.actorName" option-label="actorName" option-value="_id"></Select>
+                            </div>
                         </div>
                     </div>
                     <div class="col-span-6">
@@ -259,11 +274,7 @@ const UploadTrailer = async (event, index) => {
                                 <label for="movieDescription" class="block font-bold">Mô tả</label>
                                 <Textarea id="movieDescription" autoResize v-model="movieDetail.movieDescription" required="true" rows="3" cols="20" fluid />
                             </div>
-                            <div class="flex gap-2">
-                                <Checkbox v-model="premium" binary></Checkbox>
-                                <label for="movieDescription" class="block font-bold">Premium</label>
-                            </div>
-                            <div v-if="premium" class="flex flex-col gap-2">
+                            <div class="flex flex-col gap-2">
                                 <label for="movieDescription" class="block font-bold">Giá tiền</label>
                                 <InputNumber v-model="movieDetail.price" :min="0"></InputNumber>
                             </div>
@@ -293,8 +304,8 @@ const UploadTrailer = async (event, index) => {
                     </div>
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
                         <label class="block font-bold">Thumbnail 2</label>
-                        <div class="w-72" v-if="movieDetail?.trailer">
-                            <VideoPlayComp :url="movieDetail?.trailer ? movieDetail?.trailer[0] : ''"></VideoPlayComp>
+                        <div v-if="movieDetail.trailer">
+                            <img class="w-80 h-52 object-contain" :src="movieDetail.trailer ? movieDetail.trailer[0] : 'https://placehold.co/400x600'" alt="" />
                         </div>
                         <div>
                             <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile2(index)" />
