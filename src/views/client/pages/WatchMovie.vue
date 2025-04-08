@@ -103,7 +103,7 @@ const fetchMovieByType = async () => {
 };
 const confirmSubmit = async () => {
     try {
-        const res = await API.create(`product/${detail.value._id}/comment`, cmtPayload.value);
+        const res = await API.create(`movie/${route.params.id}/comment`, cmtPayload.value);
         if (res.data) {
             fetchDetail();
             proxy.$notify('S', 'Thành công!', toast);
