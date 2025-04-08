@@ -1,6 +1,7 @@
 <script setup>
 import AppConfigurator from '../../../layout/AppConfigurator.vue';
 import AppTopbar from '../../client/layouts/AppTopbar.vue'; /* PartiallyEnd: #3632/scriptSetup.vue */
+import AppFooter from '../layouts/AppFooter.vue';
 </script>
 <template>
     <Toast />
@@ -11,4 +12,5 @@ import AppTopbar from '../../client/layouts/AppTopbar.vue'; /* PartiallyEnd: #36
             <router-view></router-view>
         </div>
     </div>
+    <AppFooter></AppFooter>
 </template>
