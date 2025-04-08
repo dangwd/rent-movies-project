@@ -24,6 +24,10 @@ import router from './router';
 import '@/assets/styles.scss';
 import '@/assets/tailwind.css';
 
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 const app = createApp(App);
 const pinia = createPinia();
 app.use(pinia);

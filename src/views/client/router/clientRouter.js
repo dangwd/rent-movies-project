@@ -17,7 +17,12 @@ export default [
                 path: '/watch/:id',
                 name: 'watch',
                 component: () => import('@/views/client/pages/WatchMovie.vue')
-            }
+            },
+            {
+                path: '/get-me',
+                name: 'get-me',
+                component: () => import('@/views/client/pages/GetMe.vue')
+            },
         ]
     }
 ];

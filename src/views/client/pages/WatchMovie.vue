@@ -39,6 +39,32 @@
                 <label class="text-2xl font-semibold">{{ MovieDetail.movieName }}</label>
                 <p class="text-lg">{{ MovieDetail.movieDescription }}</p>
             </div>
+            <div>
+                <div class="flex flex-col gap-2">
+                    <div class="flex gap-2">
+                        <Avatar crossorigin="anonymous" :image="User?.thumbnail ? User?.thumbnail : `https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png`" class="mr-2 object-cover" size="large" shape="circle" />
+                        <div class="flex flex-col gap-2 w-full">
+                            <strong>{{ User?.name }}</strong>
+                            <Rating v-model="cmtPayload.rating" />
+                            <Textarea v-model="cmtPayload.content" auto-resize class="w-full"></Textarea>
+                            <div class="flex justify-end">
+                                <Button @click="confirmSubmit()" label="Gửi"></Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-for="(item, index) in MovieDetail?.comments" :key="index" class="flex flex-col gap-3">
+                    <div class="flex gap-2 p-2">
+                        <Avatar crossorigin="anonymous" :image="item.user?.thumbnail" class="mr-2 object-cover" size="large" shape="circle" />
+                        <div class="flex flex-col gap-2">
+                            <strong>{{ item.user?.name }}</strong>
+                            <Rating v-model="item.rating" />
+                            <span>{{ item.content }}</span>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -49,9 +75,15 @@ import { useRoute } from 'vue-router';
 onMounted(() => {
     fetchDetail();
     fetchMovieByType();
+    getMe();
 });
 const route = useRoute();
-
+const cmtPayload = ref({
+    content: '',
+    rating: 0
+});
+const User = ref({});
+const clearCmtPayload = JSON.stringify(cmtPayload.value);
 const moviesSuggest = ref([]);
 const MovieDetail = ref({});
 const fetchDetail = async () => {
@@ -68,6 +100,26 @@ const fetchMovieByType = async () => {
         const res = await API.get(`movies`);
         moviesSuggest.value = res.data.metadata;
     } catch (error) {}
+};
+const confirmSubmit = async () => {
+    try {
+        const res = await API.create(`product/${detail.value._id}/comment`, cmtPayload.value);
+        if (res.data) {
+            fetchDetail();
+            proxy.$notify('S', 'Thành công!', toast);
+            cmtPayload.value = JSON.parse(clearCmtPayload);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+const getMe = async () => {
+    try {
+        const res = await API.get(`get-me`);
+        User.value = res.data.metadata;
+    } catch (error) {
+        console.log(error);
+    }
 };
 </script>
 <style></style>

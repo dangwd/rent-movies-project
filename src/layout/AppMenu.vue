@@ -11,6 +11,7 @@ const model = ref([
             { label: 'Diễn viên', icon: 'pi pi-fw pi-user', to: '/man/actors' },
             { label: 'Phim', icon: 'pi pi-fw pi-video', to: '/man/movies' },
             { label: 'Thể loại', icon: 'pi pi-fw pi-map', to: '/man/genre' },
+            { label: 'Banner', icon: 'pi pi-fw pi-map', to: '/man/banners' }
         ]
     },
 

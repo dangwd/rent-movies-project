@@ -12,12 +12,13 @@
                 <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim bộ</router-link>
                 <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim mới</router-link>
             </nav>
-            <router-link v-if="!user" to="/auth/login">
+            <LoginModal></LoginModal>
+            <!-- <router-link v-if="!user" to="/auth/login">
                 <Button label="Đăng nhập"></Button>
             </router-link>
             <div v-else>
                 <Button text icon="pi pi-user" :label="user?.metadata?.user?.name || ''"></Button>
-            </div>
+            </div> -->
         </div>
         <div :class="{ hidden: !searchBar }" class="absolute duration-300 z-50 transition-all ease-in-out top-20 p-4 container left-1/2 -translate-x-1/2 bg-white border rounded-xl shadow-md flex flex-col gap-3">
             <div class="flex gap-2 w-full">
@@ -46,6 +47,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import LoginModal from '../components/LoginModal.vue';
 const isScrolled = ref(false);
 const user = JSON.parse(localStorage.getItem('user'));
 const route = useRoute();

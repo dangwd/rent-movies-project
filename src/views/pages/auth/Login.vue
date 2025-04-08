@@ -8,14 +8,11 @@ const { proxy } = getCurrentInstance();
 const toast = useToast();
 const store = useAuthStore();
 const router = useRouter();
-const username = ref('');
 const password = ref('');
-const fullname = ref('');
-const checked = ref(false);
-const loginForm = ref(true);
+const email = ref('');
 const handleLogin = async () => {
     const data = {
-        username: username.value,
+        username: email.value,
         password: password.value
     };
     const res = await store.login(data);
@@ -25,8 +22,6 @@ const handleLogin = async () => {
         proxy.$notify('E', res.message.response.data.message, toast);
     }
 };
-
-
 </script>
 
 <template>

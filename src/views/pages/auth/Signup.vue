@@ -40,7 +40,7 @@
                         <Password fluid id="password" v-model="password" class="h-14 !text-base" toggleMask />
                         <label class="text-normal" for="password">Nhập lại mật khẩu</label>
                     </FloatLabel>
-                    <Button @click="handleRegister()" label="Đăng nhập" class="w-full h-14 !text-base mt-1" />
+                    <Button @click="handleRegister()" label="Đăng ký" class="w-full h-14 !text-base mt-1" />
 
                     <div class="flex items-center gap-2">
                         <hr class="w-full" />
@@ -70,12 +70,12 @@ const store = useAuthStore();
 const toast = useToast();
 const firstName = ref('');
 const lastName = ref('');
-const username = ref('');
+const email = ref('');
 const password = ref('');
 const handleRegister = async () => {
     const data = {
         name: `${firstName.value}${lastName.value}`,
-        email: username.value,
+        email: email.value,
         password: password.value
     };
     const res = await store.register(data);

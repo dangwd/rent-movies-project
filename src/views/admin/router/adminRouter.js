@@ -24,6 +24,11 @@ export default [
                 path: '/man/genre',
                 name: 'genre',
                 component: () => import('@/views/admin/pages/GenreMan.vue')
+            },
+            {
+                path: '/man/banners',
+                name: 'banners',
+                component: () => import('@/views/admin/pages/BannersMan.vue')
             }
         ]
     },
