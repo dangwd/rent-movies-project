@@ -5,7 +5,7 @@
                 <img :src="image.images" alt="Slide image" class="slide-image" />
                 <div class="absolute top-[50%] h-[50%] w-full z-[99999]">
                     <div class="container mx-auto flex flex-col gap-4 left-0 right-0 border-l-4 pl-7 border-white">
-                        <h1 class="text-white text-7xl font-extrabold">{{ image.title }}</h1>
+                        <h1 class="text-white text-7xl">{{ image.title }}</h1>
                         <p class="text-white leading-7 text-lg w-1/2">
                             {{ image.description }}
                         </p>

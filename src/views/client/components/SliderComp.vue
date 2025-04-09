@@ -1,7 +1,6 @@
 <template>
     <div class="relative">
         <SlidesItem></SlidesItem>
-
     </div>
 </template>
 <script setup>

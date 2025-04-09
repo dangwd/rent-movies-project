@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'text-white': route.params.id }" class="h-20 top-0 z-[99999] backdrop-blur relative backdrop-opacity-100 supports-backdrop-blur:bg-slate-900/500 border-b border-slate-500">
+    <div class="h-20 top-0 z-[50] backdrop-blur sticky backdrop-opacity-100 supports-backdrop-blur:bg-slate-900/500 border-b border-slate-500">
         <div class="container mx-auto flex items-center h-20 justify-between">
             <router-link to="/client">
                 <img v-if="route.params.id" class="w-32" src=" @/assets/img/logo.png" alt="" />
@@ -13,12 +13,6 @@
                 <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim mới</router-link>
             </nav>
             <LoginModal></LoginModal>
-            <!-- <router-link v-if="!user" to="/auth/login">
-                <Button label="Đăng nhập"></Button>
-            </router-link>
-            <div v-else>
-                <Button text icon="pi pi-user" :label="user?.metadata?.user?.name || ''"></Button>
-            </div> -->
         </div>
         <div :class="{ hidden: !searchBar }" class="absolute duration-300 z-50 transition-all ease-in-out top-20 p-4 container left-1/2 -translate-x-1/2 bg-white border rounded-xl shadow-md flex flex-col gap-3">
             <div class="flex gap-2 w-full">
