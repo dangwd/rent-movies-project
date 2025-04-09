@@ -107,6 +107,15 @@
                 </div>
             </template>
         </Dialog>
+        <Dialog v-model:visible="warnModal" modal header="Cảnh báo" :style="{ width: '25rem' }">
+            Tài khoản của bạn không đủ, chuyển đến trang nạp tiền ?
+            <template #footer>
+                <div class="flex justify-end gap-2">
+                    <Button type="button" label="Hủy" severity="secondary" @click="warnModal = false"></Button>
+                    <Button type="button" label="Chuyển đến trang nạp tiền" @click="confirmDirect"></Button>
+                </div>
+            </template>
+        </Dialog>
     </div>
 </template>
 <script setup>
@@ -114,12 +123,16 @@ import API from '@/api/api-main';
 import { formatPrice } from '@/helper/formatPrice';
 import { useToast } from 'primevue/usetoast';
 import { getCurrentInstance, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 const { proxy } = getCurrentInstance();
 const toast = useToast();
+
+const router = useRouter();
 onMounted(() => {
     fetchDetail();
 });
+const User = ref();
+const warnModal = ref(false);
 const route = useRoute();
 const buyModal = ref(false);
 const MovieDetail = ref({});
@@ -131,7 +144,11 @@ const fetchDetail = async () => {
         console.log(error);
     }
 };
-const openBuyDlg = () => {
+const openBuyDlg = async () => {
+    await GetMe();
+    if (MovieDetail.value.price > User.value.accountBalance) {
+        return (warnModal.value = true);
+    }
     buyModal.value = true;
 };
 const confirmBuy = async () => {
@@ -140,6 +157,18 @@ const confirmBuy = async () => {
         if (res.data) {
             proxy.$notify('S', 'Mua thành công!', toast);
         }
+    } catch (error) {
+        console.log(error);
+    }
+};
+const confirmDirect = () => {
+    router.push(`/add-price`);
+};
+
+const GetMe = async () => {
+    try {
+        const res = await API.get(`get-me`);
+        User.value = res.data.metadata;
     } catch (error) {
         console.log(error);
     }
