@@ -87,56 +87,17 @@
                     </div>
                 </TabPanel>
                 <TabPanel value="1">
-                    <!-- <DataTable :value="Orders" show-gridlines paginator @page="onPageChange($event)" :rows="paginator.rows" :page="paginator.page" :total-records="paginator.total" lazy>
+                    <DataTable :value="Orders" show-gridlines paginator :rows="paginator.rows" :page="paginator.page">
                         <Column header="#">
                             <template #body="{ index }">
                                 {{ index + 1 }}
                             </template>
                         </Column>
-                        <Column header="Sản phẩm" style="max-width: 200px">
-                            <template #body="{ data }">
-                                {{ data.items.map((el) => el.productName).join(', ') }}
-                            </template>
+                        <Column header="Tên phim" field="movieName"></Column>
+                        <Column header="Giá" field="price">
+                            <template #body="{ data }"> {{ formatPrice(data.price) }}đ </template>
                         </Column>
-                        <Column header="Số lượng">
-                            <template #body="{ data }">
-                                {{ data.items.map((el) => el.quantity).join(', ') }}
-                            </template>
-                        </Column>
-                        <Column header="KM">
-                            <template #body="{ data }">
-                                {{ data.coupon ? `${data?.coupon?.CouponName} (${formatPrice(data?.coupon?.CouponValue)})` : `Không KM` }}
-                            </template>
-                        </Column>
-                        <Column header="Giá trị đơn hàng">
-                            <template #body="{ data }">
-                                {{ formatPrice(data.totalPrice) }}
-                            </template>
-                        </Column>
-                        <Column header="Đơn giá sau KM">
-                            <template #body="{ data }">
-                                {{ formatPrice(data.finalPrice) }}
-                            </template>
-                        </Column>
-                        <Column header="Ngày đặt hàng">
-                            <template #body="{ data }">
-                                {{ format(data.createdAt, 'dd/MM/yyyy') }}
-                            </template>
-                        </Column>
-                        <Column header="Trạng thái">
-                            <template #body="{ data }">
-                                {{ formatStatusOrder(data.status) }}
-                            </template>
-                        </Column>
-                        <Column header="Thao tác">
-                            <template #body="{ data }">
-                                <div class="flex gap-2">
-                                    <DetailOrder :data="data"></DetailOrder>
-                                    <Button icon="pi pi-trash" text></Button>
-                                </div>
-                            </template>
-                        </Column>
-                    </DataTable> -->
+                    </DataTable>
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -185,6 +146,7 @@
 </template>
 <script setup>
 import API from '@/api/api-main';
+import { formatPrice } from '@/helper/formatPrice';
 import { useToast } from 'primevue/usetoast';
 import { getCurrentInstance, onMounted, reactive, ref } from 'vue';
 const { proxy } = getCurrentInstance();
@@ -222,8 +184,8 @@ const updateUserModal = ref(false);
 const User = ref({});
 const fetchAllOrder = async () => {
     try {
-        const res = await API.get(`order/me?skip=${paginator.page}&limit=${paginator.rows}`);
-        Orders.value = res.data.metadata.result;
+        const res = await API.get(`movie/me?skip=${paginator.page}&limit=${paginator.rows}`);
+        Orders.value = res.data.metadata;
         paginator.total = res.data.metadata.total;
     } catch (error) {
         console.log(error);

@@ -7,7 +7,11 @@
             <div class="grid grid-cols-12 gap-3">
                 <div class="col-span-3 flex flex-col gap-3">
                     <img class="w-full rounded-md h-auto object-cover" :src="MovieDetail.images ? MovieDetail.images[0] : ''" alt="" />
-                    <button @click="openBuyDlg()" v-if="MovieDetail.price" class="border-2 hover:text-gray-700 duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">
+                    <button
+                        @click="openBuyDlg()"
+                        v-if="MovieDetail.price && idCheck !== route.params.id"
+                        class="border-2 hover:text-gray-700 duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left"
+                    >
                         {{ formatPrice(MovieDetail.price) }}đ
                     </button>
                     <button v-else class="border-2 hover:text-gray-700 duration-150 border-primary text-primary py-3 px-5 font-bold uppercase text-lg rounded-md hover-button-animation left">
@@ -39,7 +43,7 @@
                         </div>
                         <div class="flex gap-2">
                             <div class="">Khởi chiếu:</div>
-                            <strong>19/2/2025</strong>
+                            <strong>{{ format(MovieDetail?.releaseDate, 'dd/MM/yyyy') }}</strong>
                         </div>
                         <p class="text-white leading-7 text-base w-full">
                             {{ MovieDetail.movieDescription }}
@@ -107,14 +111,16 @@
 <script setup>
 import API from '@/api/api-main';
 import { formatPrice } from '@/helper/formatPrice';
+import { format } from 'date-fns';
 import { useToast } from 'primevue/usetoast';
 import { getCurrentInstance, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const { proxy } = getCurrentInstance();
 const toast = useToast();
-
+const idCheck = ref(null);
 const router = useRouter();
 onMounted(() => {
+    checkMovieBought();
     fetchDetail();
     GetMe();
 });
@@ -139,7 +145,7 @@ const fetchDetail = async () => {
 };
 const openBuyDlg = async () => {
     await GetMe();
-    if (MovieDetail.value.price > 100) {
+    if (MovieDetail.value.price > User.value.accountBalance) {
         return (warnModal.value = true);
     }
     buyModal.value = true;
@@ -174,6 +180,18 @@ const confirmSubmit = async () => {
             proxy.$notify('S', 'Thành công!', toast);
             cmtPayload.value = JSON.parse(clearCmtPayload);
         }
+    } catch (error) {
+        console.log(error);
+    }
+};
+const checkMovieBought = async () => {
+    try {
+        const res = await API.create(`movie/checking/${route.params.id}`);
+        idCheck.value = res?.data?.metadata?._id;
+        // if (route.params.id === res?.data?.metadata?._id) {
+        //     return false;
+        // }
+        // return true;
     } catch (error) {
         console.log(error);
     }
