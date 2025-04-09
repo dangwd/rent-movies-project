@@ -1,7 +1,7 @@
 <template>
     <div v-if="MovieDetail && User" class="text-white h-auto">
         <div>
-            <img :src="MovieDetail.trailer ? MovieDetail.trailer[0] : ''" alt="" class="w-full h-[600px] object-cover" />
+            <img :src="MovieDetail.trailer ? MovieDetail.trailer[0] : 'https://placehold.co/600x400'" alt="" class="w-full h-[600px] object-cover" />
         </div>
         <div class="container mx-auto py-10">
             <div class="grid grid-cols-12 gap-3">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-3 pt-3">
                 <strong class="text-lg">Bình luận</strong>
                 <div class="flex flex-col gap-2">
                     <div class="flex gap-2">
@@ -76,7 +76,7 @@
                         <Avatar crossorigin="anonymous" :image="item.user?.thumbnail ? item.user?.thumbnail : `https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png`" class="mr-2 object-cover" size="large" shape="circle" />
                         <div class="flex flex-col gap-2">
                             <strong>{{ item.user?.name }}</strong>
-                            <Rating v-model="item.rating" />
+                            <Rating v-model="item.rating" disabled />
                             <span>{{ item.content }}</span>
                         </div>
                     </div>

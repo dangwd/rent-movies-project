@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-3 container mx-auto h-screen py-10">
-        <strong class="text-white text-9xl">Nạp tiền tài khoản</strong>
+        <strong class="text-white text-5xl">Nạp tiền tài khoản</strong>
         <InputNumber v-model="payload.price"></InputNumber>
         <Button label="Nạp" @click="ConfirmAdd()"></Button>
     </div>

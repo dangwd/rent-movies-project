@@ -27,6 +27,21 @@ export default [
                 path: '/add-price',
                 name: 'add-price',
                 component: () => import('@/views/client/pages/AddPrice.vue')
+            },
+            {
+                path: '/search-movies',
+                name: '/search-movies',
+                component: () => import('@/views/client/pages/SearchMovies.vue')
+            },
+            {
+                path: '/hot-movies',
+                name: '/hot-movies',
+                component: () => import('@/views/client/pages/HotMovies.vue')
+            },
+            {
+                path: '/new-movies',
+                name: '/new-movies',
+                component: () => import('@/views/client/pages/NewMovies.vue')
             }
         ]
     }

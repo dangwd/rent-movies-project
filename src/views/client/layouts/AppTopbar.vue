@@ -2,15 +2,15 @@
     <div class="h-20 top-0 z-[50] backdrop-blur sticky backdrop-opacity-100 supports-backdrop-blur:bg-slate-900/500 border-b border-slate-500">
         <div class="container mx-auto flex items-center h-20 justify-between">
             <router-link to="/client">
-                <img v-if="route.params.id" class="w-32" src=" @/assets/img/logo.png" alt="" />
+                <img v-if="isScrolled" class="w-32" src=" @/assets/img/logo.png" alt="" />
                 <img v-else class="w-32" src=" @/assets/img/logo1.png" alt="" />
             </router-link>
             <nav class="flex gap-2 font-semibold justify-between w-1/3 leading-3 uppercase">
-                <div @click="searchBar = !searchBar" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5" to="#">Tìm kiếm</div>
-                <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim hot</router-link>
-                <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim lẻ</router-link>
-                <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim bộ</router-link>
-                <router-link class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim mới</router-link>
+                <router-link to="/search-movies" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Tìm kiếm</router-link>
+                <router-link to="/hot-movies" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim hot</router-link>
+                <router-link to="#" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim lẻ</router-link>
+                <router-link to="#" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim bộ</router-link>
+                <router-link to="/new-movies" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim mới</router-link>
             </nav>
             <LoginModal></LoginModal>
         </div>
