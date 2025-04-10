@@ -8,8 +8,8 @@
             <nav class="flex gap-2 font-semibold justify-between w-1/3 leading-3 uppercase">
                 <router-link to="/search-movies" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Tìm kiếm</router-link>
                 <router-link to="/hot-movies" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim hot</router-link>
-                <router-link to="#" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim lẻ</router-link>
-                <router-link to="#" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim bộ</router-link>
+                <router-link to="/single-movie" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim lẻ</router-link>
+                <router-link to="/series-movie" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim bộ</router-link>
                 <router-link to="/new-movies" class="hover:text-primary transition-all ease-in-out duration-150 hover-underline-animation left leading-5">Phim mới</router-link>
             </nav>
             <LoginModal></LoginModal>

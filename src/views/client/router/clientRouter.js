@@ -42,6 +42,16 @@ export default [
                 path: '/new-movies',
                 name: '/new-movies',
                 component: () => import('@/views/client/pages/NewMovies.vue')
+            },
+            {
+                path: '/single-movie',
+                name: '/single-movie',
+                component: () => import('@/views/client/pages/SingleMovie.vue')
+            },
+            {
+                path: '/series-movie',
+                name: '/series-movie',
+                component: () => import('@/views/client/pages/SeriesMovie.vue')
             }
         ]
     }
