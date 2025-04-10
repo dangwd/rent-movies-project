@@ -13,11 +13,23 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    const isAuthenticated = auth();
-    if (to.meta.requiresAuth && !isAuthenticated) {
-        next({ name: 'login' });
-    } else {
-        next();
+    if (to.meta.requiresAuth) {
+        const isAuthenticated = await auth();
+        if (!isAuthenticated) {
+            next({ name: 'login' });
+            return;
+        }
+        if (to.meta.roles) {
+            let roleUser = user.metadata.user.role;
+            console.log(roleUser);
+            if (to.meta.roles.includes(roleUser)) {
+                next();
+            } else {
+                next({ name: 'home' });
+            }
+            return;
+        }
     }
+    next();
 });
 export default router;

@@ -82,7 +82,6 @@ const handleRegister = async () => {
     if (res.status === 1) {
         proxy.$notify('S', 'Tạo tài khoản thành công!', toast);
     } else {
-        console.log(res);
         proxy.$notify('E', 'Có lỗi xảy ra!', toast);
     }
 };

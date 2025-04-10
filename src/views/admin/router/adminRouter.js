@@ -29,6 +29,11 @@ export default [
                 path: '/man/banners',
                 name: 'banners',
                 component: () => import('@/views/admin/pages/BannersMan.vue')
+            },
+            {
+                path: '/man/series',
+                name: 'series',
+                component: () => import('@/views/admin/pages/SeriesMan.vue')
             }
         ]
     },

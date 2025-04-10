@@ -49,6 +49,7 @@
                             {{ MovieDetail.movieDescription }}
                         </p>
                     </div>
+                    
                     <div class="flex flex-col gap-2 text-white text-lg">
                         <strong class="">Diễn viên</strong>
                         <div class="flex gap-8">

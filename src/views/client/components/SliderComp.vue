@@ -22,7 +22,6 @@ const fetchMovies = async () => {
     try {
         const res = await API.get(`movies`);
         Movies.value = res.data.metadata;
-        console.log(res);
     } catch (error) {
         console.log(error);
     }

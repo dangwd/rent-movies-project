@@ -83,6 +83,7 @@ const username = ref('');
 const password = ref('');
 const checked = ref(false);
 const user = store?.user?.metadata.user;
+const role = ref();
 const accountBalance = ref();
 const visible = ref(false);
 const loginForm = ref(true);
@@ -90,9 +91,9 @@ const op = ref();
 const openLogin = () => {
     visible.value = true;
 };
-onMounted(() => {
-    getMe();
-    if (user?.role === 'A') {
+onMounted(async () => {
+    await getMe();
+    if (role.value === 'A') {
         items.value.unshift({
             label: 'Trang quản trị',
             icon: 'pi pi-chart-pie',
@@ -150,7 +151,6 @@ const handleRegister = async () => {
     if (res.status === 1) {
         proxy.$notify('S', 'Tạo tài khoản thành công!', toast);
     } else {
-        console.log(res);
         proxy.$notify('E', 'Có lỗi xảy ra!', toast);
     }
 };
@@ -161,8 +161,10 @@ const getMe = async () => {
     try {
         const res = await API.get(`get-me`);
         accountBalance.value = res.data.metadata?.accountBalance;
-        console.log(res);
-    } catch (error) {}
+        role.value = res.data.metadata.role;
+    } catch (error) {
+        console.log(error);
+    }
 };
 </script>
 <style>

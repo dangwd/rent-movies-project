@@ -93,7 +93,13 @@
                                 {{ index + 1 }}
                             </template>
                         </Column>
-                        <Column header="Tên phim" field="movieName"></Column>
+                        <Column header="Tên phim" field="movieName">
+                            <template #body="{ data }">
+                                <router-link :to="`/detail/${data._id}`" class="text-primary hover:text-primary-600 hover:underline">
+                                    {{ data.movieName }}
+                                </router-link>
+                            </template>
+                        </Column>
                         <Column header="Giá" field="price">
                             <template #body="{ data }"> {{ formatPrice(data.price) }}đ </template>
                         </Column>
