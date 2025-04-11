@@ -103,6 +103,8 @@ const fetchAllMovies = async () => {
 };
 const confirmSelected = () => {
     seriesDetail.value.episodes = [...selectedMovies.value.map((el) => el._id)];
+    proxy.$notify('S', 'Thêm thành công!', toast);
+    moviesModal.value = false;
 };
 </script>
 
