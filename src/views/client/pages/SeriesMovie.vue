@@ -16,7 +16,7 @@ onMounted(() => {
 });
 const fetchMovies = async () => {
     try {
-        const res = await API.get(`movies`);
+        const res = await API.get(`movies?skip=0&limit=300&movieType=B`);
         Movies.value = res.data.metadata;
     } catch (error) {}
 };
