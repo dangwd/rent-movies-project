@@ -1,5 +1,5 @@
 <template>
-    <div v-if="idCheck" class="bg-cover text-white h-auto mt-[-70px] bg-center bg-fixed relative overflow-auto">
+    <div class="bg-cover text-white h-auto mt-[-70px] bg-center bg-fixed relative overflow-auto">
         <div class="container flex flex-col gap-3 mx-auto py-40">
             <div class="grid grid-cols-12 gap-3">
                 <div class="col-span-8 flex flex-col gap-5">
@@ -73,7 +73,7 @@
             </div>
         </div>
     </div>
-    <div v-else class="container mx-auto text-center text-white items-center justify-items-center flex flex-col gap-3 h-screen py-10">
+    <div v-if="false" class="container mx-auto text-center text-white items-center justify-items-center flex flex-col gap-3 h-screen py-10">
         <img class="w-80" src="../../../assets/img/error.png" alt="" />
         <strong class="text-xl">{{ error }}</strong>
         <Button @click="router.back()" label="Quay lại"></Button>

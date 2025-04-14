@@ -12,6 +12,7 @@ onMounted(() => {
     fetchAllActors();
     fetchDirectors();
 });
+const keySearch = ref();
 const Languages = ref([]);
 const Actors = ref([]);
 const formData = new FormData();
@@ -31,7 +32,7 @@ const submitted = ref(false);
 const GenreOpts = ref([]);
 const fetchAllMovies = async () => {
     try {
-        const res = await API.get(`movies?skip=0&limit=20`);
+        const res = await API.get(`movies?skip=0&limit=200&search=${keySearch.value}`);
         Movies.value = res.data.metadata;
     } catch (error) {
         console.log(error);
@@ -170,8 +171,8 @@ const fetchDirectors = async () => {
             <Toolbar class="mb-6">
                 <template #start>
                     <strong @click="typeMovies = true" :class="{ 'text-primary': typeMovies }" class="text-lg cursor-pointer">Danh sách phim lẻ</strong>
-                    <strong class="text-lg px-2">|</strong>
-                    <strong @click="typeMovies = false" :class="{ 'text-primary': !typeMovies }" class="text-lg cursor-pointer">Danh sách phim bộ</strong>
+                    <!-- <strong class="text-lg px-2">|</strong>
+                    <strong @click="typeMovies = false" :class="{ 'text-primary': !typeMovies }" class="text-lg cursor-pointer">Danh sách phim bộ</strong> -->
                 </template>
                 <template #end>
                     <Button v-if="typeMovies" label="Thêm mới phim lẻ" icon="pi pi-plus" @click="openNew()" />
@@ -186,9 +187,12 @@ const fetchDirectors = async () => {
                             <InputIcon>
                                 <i class="pi pi-search" />
                             </InputIcon>
-                            <InputText class="w-[300px]" placeholder="Tìm kiếm phim theo tên..." />
+                            <InputText v-model="keySearch" @keyup.enter="fetchAllMovies()" class="w-[300px]" placeholder="Tìm kiếm phim theo tên..." />
                         </IconField>
                     </div>
+                </template>
+                <template #empty>
+                    <div class="text-center p-2">Không tìm thấy bản ghi nào</div>
                 </template>
                 <Column header="STT">
                     <template #body="sp">
