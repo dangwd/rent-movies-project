@@ -1,6 +1,5 @@
 <script setup>
 import API from '@/api/api-main';
-import VideoPlayComp from '@/components/VideoPlayComp.vue';
 import { format } from 'date-fns';
 import { useToast } from 'primevue/usetoast';
 import { getCurrentInstance, onMounted, ref } from 'vue';
@@ -60,7 +59,9 @@ const openNew = async (data = '') => {
         try {
             const res = await API.get(`movie/${data._id}`);
             movieDetail.value = res.data.metadata;
-            // movieDetail.value.genre = res.data.metadata.genre.join('');
+            movieDetail.value.genre = res.data.metadata.genre.map((el) => el._id);
+            movieDetail.value.actors = res.data.metadata.actors.map((el) => el._id);
+            movieDetail.value.language = res.data.metadata.language.map((el) => el._id);
         } catch (error) {
             console.log(error);
         }
@@ -303,15 +304,16 @@ const fetchDirectors = async () => {
                     </div>
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
                         <label class="block font-bold">Phim</label>
-                        <div class="w-72" v-if="movieDetail?.videos">
+                        <InputText placeholder="Nhập URL phim..." v-model="movieDetail.movieLink"></InputText>
+
+                        <!-- <div class="w-72" v-if="movieDetail?.videos">
                             <VideoPlayComp :url="movieDetail?.videos ? movieDetail?.videos[0] : ''"></VideoPlayComp>
                         </div>
                         <div>
                             <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />
                             <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
-                        </div>
+                        </div> -->
                     </div>
-                    <InputText v-model="movieDetail.movieLink"></InputText>
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
                         <label class="block font-bold">Thumbnail 2</label>
                         <div v-if="movieDetail.thumbnail2">
