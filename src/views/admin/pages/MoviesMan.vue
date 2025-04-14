@@ -12,7 +12,7 @@ onMounted(() => {
     fetchAllActors();
     fetchDirectors();
 });
-const keySearch = ref();
+const keySearch = ref('');
 const Languages = ref([]);
 const Actors = ref([]);
 const formData = new FormData();
@@ -311,6 +311,7 @@ const fetchDirectors = async () => {
                             <input type="file" class="hidden click-file" @change="UploadFileLocal($event, 0)" />
                         </div>
                     </div>
+                    <InputText v-model="movieDetail.movieLink"></InputText>
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
                         <label class="block font-bold">Thumbnail 2</label>
                         <div v-if="movieDetail.thumbnail2">

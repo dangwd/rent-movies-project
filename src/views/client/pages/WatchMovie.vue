@@ -3,7 +3,16 @@
         <div class="container flex flex-col gap-3 mx-auto py-40">
             <div class="grid grid-cols-12 gap-3">
                 <div class="col-span-8 flex flex-col gap-5">
-                    <video class="rounded-xl" crossorigin="anonymous" controls :src="MovieDetail.videos ? MovieDetail.videos[0] : ``"></video>
+                    <!-- <video class="rounded-xl" crossorigin="anonymous" controls :src="MovieDetail.videos ? MovieDetail.videos[0] : ``"></video> -->
+                    <iframe
+                        width="770"
+                        height="460"
+                        :src="MovieDetail?.movieLink"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                    ></iframe>
                 </div>
                 <div class="col-span-4 bg-slate-800 card w-full p-3 rounded-xl">
                     <div class="flex flex-col gap-3">
@@ -152,7 +161,7 @@ const getMe = async () => {
 const fetchSeries = async () => {
     try {
         const res = await API.get(`series/movie/${route.params.id}`);
-        Series.value = res.data.metadata.episodes;
+        Series.value = res.data?.metadata?.episodes;
     } catch (error) {
         console.log(error);
     }
