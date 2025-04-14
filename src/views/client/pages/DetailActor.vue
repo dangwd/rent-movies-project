@@ -37,21 +37,13 @@ const route = useRoute();
 
 onMounted(() => {
     fetchDetailActor();
-    fetchMovies();
 });
 const fetchDetailActor = async () => {
     try {
         const res = await API.get(`actor/${route.params.id}`);
-        ActorDetail.value = res.data.metadata;
+        ActorDetail.value = res.data.metadata.data;
+        Movies.value = res.data.metadata.movies;
     } catch (error) {}
-};
-const fetchMovies = async () => {
-    try {
-        const res = await API.get(`movies`);
-        Movies.value = res.data.metadata;
-    } catch (error) {
-        console.log(error);
-    }
 };
 </script>
 <style></style>

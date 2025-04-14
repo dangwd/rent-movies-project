@@ -59,7 +59,7 @@ const openNew = async (data) => {
     if (data) {
         try {
             const res = await API.get(`actor/${data._id}`);
-            actorDetail.value = res.data.metadata;
+            actorDetail.value = res.data.metadata.data;
             actorDetail.value.birthDay = format(actorDetail.value.birthDay, 'dd/MM/yyyy');
         } catch (error) {
             console.log(error);
@@ -203,7 +203,8 @@ function deleteSelectedProducts() {
                 <div class="col-span-4">
                     <div class="flex flex-col items-center gap-2">
                         <div class="rounded-full">
-                            <Image crossorigin="anonymous" :src="actorDetail?.images ? actorDetail?.images[0] : `https://placehold.co/200x200`" alt="Image" width="200" />
+                            <Image v-if="actorDetail.files" width="300" crossorigin="anonymous" :src="actorDetail?.files"></Image>
+                            <Image v-else crossorigin="anonymous" :src="actorDetail?.images ? actorDetail?.images[0] : `https://placehold.co/200x200`" alt="Image" width="200" />
                         </div>
                         <div>
                             <Button label="Chọn ảnh" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile(index)" />

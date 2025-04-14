@@ -146,11 +146,13 @@ const UploadThumbnail = async (event, index) => {
     const file = event.target.files[0];
     formData.append('images', file);
     document.querySelectorAll('.click-thumbnail')[index].value = '';
+    movieDetail.value.thumbnail1 = URL.createObjectURL(file);
 };
 const UploadTrailer = async (event, index) => {
     const file = event.target.files[0];
     formData.append('trailer', file);
     document.querySelectorAll('.click-trailer')[index].value = '';
+    movieDetail.value.thumbnail2 = URL.createObjectURL(file);
 };
 const fetchDirectors = async () => {
     try {
@@ -284,7 +286,10 @@ const fetchDirectors = async () => {
                 <div class="flex flex-col gap-3">
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
                         <label class="block font-bold">Thumbnail</label>
-                        <div v-if="movieDetail.images">
+                        <div v-if="movieDetail.thumbnail1">
+                            <img class="w-52 h-72 object-contain" :src="movieDetail.thumbnail1" alt="" />
+                        </div>
+                        <div v-else>
                             <img class="w-52 h-72 object-contain" :src="movieDetail.images ? movieDetail.images[0] : 'https://placehold.co/400x600'" alt="" />
                         </div>
                         <div>
@@ -304,8 +309,11 @@ const fetchDirectors = async () => {
                     </div>
                     <div class="flex justify-between items-center gap-2 border border-gray-300 p-3 rounded-xl">
                         <label class="block font-bold">Thumbnail 2</label>
-                        <div v-if="movieDetail.trailer">
-                            <img class="w-80 h-52 object-contain" :src="movieDetail.trailer ? movieDetail.trailer[0] : 'https://placehold.co/400x600'" alt="" />
+                        <div v-if="movieDetail.thumbnail2">
+                            <img class="w-52 h-72 object-contain" :src="movieDetail.thumbnail2" alt="" />
+                        </div>
+                        <div v-else>
+                            <img class="w-80 h-52 object-contain" :src="movieDetail.trailer ? movieDetail.trailer[0] : 'https://placehold.co/600x400'" alt="" />
                         </div>
                         <div>
                             <Button label="Tải lên" icon="pi pi-cloud-upload" class="btn-up-file" raised @click="Openfile2(index)" />

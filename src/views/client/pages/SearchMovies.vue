@@ -2,7 +2,7 @@
     <div class="container mx-auto h-auto flex flex-col gap-5 py-5">
         <IconField>
             <InputIcon class="pi pi-search" />
-            <InputText v-model="value1" placeholder="Tìm kiếm phim..." class="w-full" />
+            <InputText v-model="keySearch" @keyup.enter="fetchMovies" placeholder="Tìm kiếm phim..." class="w-full" />
         </IconField>
         <!-- <div class="card bg-slate-50 flex gap-2 shadow-md justify-between items-center rounded-xl">
             <div class="flex flex-col gap-2 w-full">
@@ -36,6 +36,7 @@ import { onMounted, reactive, ref } from 'vue';
 import MovieLayout from '../layouts/MovieLayout.vue';
 const typeOpts = ref([]);
 const Movies = ref([]);
+const keySearch = ref('');
 const filters = reactive({
     type: '',
     genres: '',
@@ -56,7 +57,7 @@ const fetchAllType = async () => {
 };
 const fetchMovies = async () => {
     try {
-        const res = await API.get(`movies`);
+        const res = await API.get(`movies?skip=0&limit=30&search=${keySearch.value}`);
         Movies.value = res.data.metadata;
     } catch (error) {
         console.log(error);
