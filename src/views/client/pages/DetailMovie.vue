@@ -49,14 +49,14 @@
                             {{ MovieDetail.movieDescription }}
                         </p>
                     </div>
-                    
+
                     <div class="flex flex-col gap-2 text-white text-lg">
                         <strong class="">Diễn viên</strong>
                         <div class="flex gap-8">
-                            <div v-for="(item, index) in MovieDetail.actors?.filter((el) => el.type === 'A')" :key="index" class="flex flex-col items-center gap-2">
+                            <router-link :to="`/actor/${item._id}`" v-for="(item, index) in MovieDetail.actors?.filter((el) => el.type === 'A')" :key="index" class="flex flex-col items-center gap-2">
                                 <img class="rounded-full w-32 h-32 object-cover" :src="item.images ? item.images[0] : ``" alt="" />
                                 <label for="">{{ item.actorName }}</label>
-                            </div>
+                            </router-link>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
             <InputIcon class="pi pi-search" />
             <InputText v-model="value1" placeholder="Tìm kiếm phim..." class="w-full" />
         </IconField>
-        <div class="card bg-slate-50 flex gap-2 shadow-md justify-between items-center rounded-xl">
+        <!-- <div class="card bg-slate-50 flex gap-2 shadow-md justify-between items-center rounded-xl">
             <div class="flex flex-col gap-2 w-full">
                 <label class="text-base font-semibold">Loại phim: </label>
                 <Dropdown placeholder="Chọn loại phim" v-model="filters.type"></Dropdown>
@@ -26,7 +26,7 @@
                 <label class="text-base font-semibold">Sắp xếp: </label>
                 <Dropdown></Dropdown>
             </div>
-        </div>
+        </div> -->
         <MovieLayout :data="Movies"></MovieLayout>
     </div>
 </template>

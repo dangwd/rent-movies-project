@@ -52,6 +52,11 @@ export default [
                 path: '/series-movie',
                 name: '/series-movie',
                 component: () => import('@/views/client/pages/SeriesMovie.vue')
+            },
+            {
+                path: '/actor/:id',
+                name: 'actor-detail',
+                component: () => import('@/views/client/pages/DetailActor.vue')
             }
         ]
     }
