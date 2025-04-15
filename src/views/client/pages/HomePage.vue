@@ -4,15 +4,38 @@ import { onMounted, ref } from 'vue';
 import SliderComp from '../components/SliderComp.vue';
 import MovieLayout from '../layouts/MovieLayout.vue';
 onMounted(() => {
-    fetchAllMovie();
+    fetchAllMovieHanhDong();
+    fetchAllMovieTinhCam();
+    fetchAllMovieGiatGan();
     fetchAllActors();
 });
-const Movies = ref([]);
+const MoviesHanhDong = ref([]);
+const MoviesTinhCam = ref([]);
 const Actors = ref([]);
-const fetchAllMovie = async () => {
+
+//hanhdong
+const fetchAllMovieHanhDong = async () => {
     try {
-        const res = await API.get(`movies`);
-        Movies.value = res.data.metadata;
+        const res = await API.get(`movie/name/H%C3%A0nh%20%C4%91%E1%BB%99ng?skip=0&limit=30`);
+        MoviesHanhDong.value = res.data.metadata;
+    } catch (error) {
+        console.log(error);
+    }
+};
+//Tinh cam
+const fetchAllMovieTinhCam = async () => {
+    try {
+        const res = await API.get(`movie/name/T%C3%ACnh%20c%E1%BA%A3m?skip=0&limit=30`);
+        MoviesTinhCam.value = res.data.metadata;
+    } catch (error) {
+        console.log(error);
+    }
+};
+//Giật gân
+const fetchAllMovieGiatGan = async () => {
+    try {
+        const res = await API.get(`movie/name/Gi%E1%BA%ADt%20g%C3%A2n?skip=0&limit=30`);
+        MoviesTinhCam.value = res.data.metadata;
     } catch (error) {
         console.log(error);
     }
@@ -29,18 +52,18 @@ const fetchAllActors = async () => {
 <template>
     <SliderComp></SliderComp>
     <div class="container mx-auto py-28">
-        <span class="text-xl text-white uppercase font-bold">Phim đề cử</span>
+        <span class="text-xl text-white uppercase font-bold">Phim hành động</span>
 
-        <MovieLayout :data="Movies"></MovieLayout>
+        <MovieLayout :data="MoviesHanhDong"></MovieLayout>
         <span class="text-xl text-white uppercase font-bold">Phim lẻ mới cập nhật</span>
 
-        <MovieLayout :data="Movies"></MovieLayout>
-        <span class="text-xl text-white uppercase font-bold">Phim bộ mới cập nhật</span>
+        <MovieLayout :data="MoviesHanhDong"></MovieLayout>
+        <span class="text-xl text-white uppercase font-bold">Phim tình cảm mới cập nhật</span>
 
-        <MovieLayout :data="Movies"></MovieLayout>
-        <span class="text-xl text-white uppercase font-bold">Phim đề cử</span>
+        <MovieLayout :data="MoviesTinhCam"></MovieLayout>
+        <span class="text-xl text-white uppercase font-bold">Những bộ phim giật gân...</span>
 
-        <MovieLayout :data="Movies"></MovieLayout>
+        <MovieLayout :data="MoviesHanhDong"></MovieLayout>
     </div>
 </template>
 <style scoped></style>
